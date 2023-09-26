@@ -15,23 +15,23 @@ public class UserRepository {
 	private SqlSession sqlSession;
 	
 	public Boolean insert(UserVo vo) {
-		int count = sqlSession.insert("user.insert", vo);
+		int count = sqlSession.insert("userMapper.insert", vo);
 		return count == 1;
 	}
 	
-	public UserVo findByEmailAndPassword(String email, String password) {
-		Map<String, Object> map = new HashMap<>();
-		map.put("email", email);
-		map.put("password", password);
-		
-		return sqlSession.selectOne("user.findByEmailAndPassword", map);
-	}
-	
-	public UserVo findByNo(long no) {
-		return sqlSession.selectOne("user.findByNo", no);
-	}
-	
-	public void update(UserVo vo) {
-		sqlSession.update("user.update", vo);
-	}
+//	public UserVo findByEmailAndPassword(String email, String password) {
+//		Map<String, Object> map = new HashMap<>();
+//		map.put("email", email);
+//		map.put("password", password);
+//		
+//		return sqlSession.selectOne("user.findByEmailAndPassword", map);
+//	}
+//	
+//	public UserVo findByNo(long no) {
+//		return sqlSession.selectOne("user.findByNo", no);
+//	}
+//	
+//	public void update(UserVo vo) {
+//		sqlSession.update("user.update", vo);
+//	}
 }

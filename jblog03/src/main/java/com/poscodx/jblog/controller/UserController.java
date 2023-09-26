@@ -18,8 +18,8 @@ import com.poscodx.jblog.vo.UserVo;
 @Controller
 @RequestMapping("/user")
 public class UserController {
-//	@Autowired
-//	private UserService userService;
+	@Autowired
+	private UserService userService;
 
 	@RequestMapping(value="/join", method=RequestMethod.GET)
 	public String join(@ModelAttribute UserVo userVo) {
@@ -33,7 +33,7 @@ public class UserController {
 			return "user/join";
 		}
 		
-		// userService.join(userVo);
+		userService.join(userVo);
 		return "redirect:/user/joinsuccess";
 	}
 	
