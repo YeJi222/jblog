@@ -2,7 +2,11 @@
 <!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
 	<typeAliases>
-	  </typeAliases>
+		<!-- <typeAlias type="com.poscodx.jblog.vo.GuestbookVo" alias="guestbookvo"/> -->
+		<typeAlias type="com.poscodx.jblog.vo.UserVo" alias="uservo"/>
+		<!-- <typeAlias type="com.poscodx.jblog.vo.BoardVo" alias="boardvo"/>
+		<typeAlias type="com.poscodx.jblog.vo.SiteVo" alias="sitevo"/> -->
+    </typeAliases>
     	
 	<mappers>
 	</mappers>
