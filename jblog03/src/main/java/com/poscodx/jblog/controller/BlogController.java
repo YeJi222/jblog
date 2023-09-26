@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 @RequestMapping("/{id}")
 public class BlogController {
-
+	
 	@ResponseBody
 	@RequestMapping({"", "/{categoryNo}", "/{categoryNo}/{postNo}" })
 	public String index(
@@ -17,11 +17,11 @@ public class BlogController {
 		@PathVariable("postNo") Long postNo) {
 		return "BlogController.index()";
 	}
-
+	
 	@ResponseBody
 	@RequestMapping("/admin/basic")
 	public String adminBasic(@PathVariable("id") String blogId) {
 		return "BlogController.adminBasic()";
 	}
-
+	
 }
