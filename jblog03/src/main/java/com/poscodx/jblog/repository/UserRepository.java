@@ -15,7 +15,7 @@ public class UserRepository {
 	private SqlSession sqlSession;
 	
 	public Boolean insert(UserVo vo) {
-		int count = sqlSession.insert("userMapper.insert", vo);
+		int count = sqlSession.insert("user.insert", vo);
 		return count == 1;
 	}
 	
