@@ -1,5 +1,7 @@
 package com.poscodx.jblog.controller;
 
+import javax.validation.Valid;
+
 // import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,11 +29,15 @@ public class UserController {
 	}
 
 	@RequestMapping(value="/join", method=RequestMethod.POST)
-	public String join(@ModelAttribute UserVo userVo, BindingResult result, Model model) {
+	public String join(@ModelAttribute @Valid UserVo userVo, BindingResult result, Model model) {
 		if(result.hasErrors()) {
+			System.out.println("Validation errors");
+			
 			model.addAllAttributes(result.getModel());
 			return "user/join";
 		}
+		
+		System.out.println("userVo : " + userVo);
 		
 		userService.join(userVo);
 		return "redirect:/user/joinsuccess";
