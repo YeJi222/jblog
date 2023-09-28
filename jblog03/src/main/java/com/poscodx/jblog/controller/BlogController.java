@@ -31,10 +31,27 @@ public class BlogController {
 	// @ResponseBody
 	@RequestMapping("/admin/basic")
 	public String adminBasic(@PathVariable("id") String blogId, Model model) {
-		
+		model.addAttribute("selected", "basic");
 		model.addAttribute("blogId", blogId);
 		
 		return "blog/admin-basic";
 	}
 	
+	@RequestMapping("/admin/category")
+	public String adminCategory(@PathVariable("id") String blogId, Model model) {
+		
+		model.addAttribute("selected", "category");
+		model.addAttribute("blogId", blogId);
+		
+		return "blog/admin-category";
+	}
+	
+	@RequestMapping("/admin/write")
+	public String adminWrite(@PathVariable("id") String blogId, Model model) {
+		
+		model.addAttribute("selected", "write");
+		model.addAttribute("blogId", blogId);
+		
+		return "blog/admin-write";
+	}
 }

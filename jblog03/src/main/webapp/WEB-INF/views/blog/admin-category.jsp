@@ -14,11 +14,7 @@
 		<c:import url="/WEB-INF/views/includes/header.jsp" />
 		<div id="wrapper">
 			<div id="content" class="full-screen">
-				<ul class="admin-menu">
-					<li><a href="">기본설정</a></li>
-					<li class="selected">카테고리</li>
-					<li><a href="">글작성</a></li>
-				</ul>
+				<c:import url="/WEB-INF/views/includes/admin-menu.jsp" />
 		      	<table class="admin-cat">
 		      		<tr>
 		      			<th>번호</th>
