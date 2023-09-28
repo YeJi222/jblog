@@ -11,11 +11,15 @@
 				<li class="header-session">로그아웃</li>
 				<li class="header-session">블로그 관리</li>
 			</c:when>
-			<c:otherwise>
-				${jspPath}
+			<c:when test="${authUser.id != blogId}">
 				<li class="header-session">로그인</li>
 				<li><a href="${pageContext.request.contextPath }/user/logout/${blogId}">로그아웃</a></li>
-				<li><a href="${pageContext.request.contextPath }/${authUser.id}/admin/basic">블로그 관리</a></li>
+				<li class="header-session">블로그 관리</li>
+			</c:when>
+			<c:otherwise>
+				<li class="header-session">로그인</li>
+				<li><a href="${pageContext.request.contextPath }/user/logout/${blogId}">로그아웃</a></li>
+				<li><a href="${pageContext.request.contextPath }/${blogId}/admin/basic">블로그 관리</a></li>
 			</c:otherwise>
 		</c:choose>
 	</ul>

@@ -9,8 +9,8 @@ import javax.servlet.http.HttpSession;
 public class LogoutInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-    	String uri = request.getRequestURI();
-    	String blogId = uri.split("/")[4];
+    	String requestURI = request.getRequestURI();
+    	String blogId = requestURI.split("/")[4];
     	
     	HttpSession session = request.getSession();
     	session.removeAttribute("authUser");

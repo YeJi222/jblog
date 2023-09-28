@@ -30,8 +30,9 @@ public class BlogController {
 	
 	// @ResponseBody
 	@RequestMapping("/admin/basic")
-	public String adminBasic(@PathVariable("id") String blogId) {
-		System.out.println("blog id : " + blogId);
+	public String adminBasic(@PathVariable("id") String blogId, Model model) {
+		
+		model.addAttribute("blogId", blogId);
 		
 		return "blog/admin-basic";
 	}

@@ -32,8 +32,12 @@
 		</mvc:interceptor>
 		<mvc:interceptor>
 			<mvc:mapping path="/user/logout/main"/>
-			<mvc:mapping path="/user/logout/*"/>
+			<mvc:mapping path="/user/logout/**"/>
 			<bean class="com.poscodx.jblog.security.LogoutInterceptor" />
+		</mvc:interceptor>
+		<mvc:interceptor>
+			<mvc:mapping path="/**/admin/**"/>
+			<bean class="com.poscodx.jblog.security.AdminInterceptor" />
 		</mvc:interceptor>
 		<!-- <mvc:interceptor>
 			<mvc:mapping path="/**"/>
