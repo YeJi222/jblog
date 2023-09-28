@@ -19,6 +19,7 @@ a:hover 		{ color:#dc143c; text-decoration:none; font-weight:bold; }
 .center-content .menu li						{ display:inline; padding-left:20px }
 .center-content .menu li a						{ font-size:1.2em }
 .menu-session {font-weight: bold; font-size: 1.2em; color: lightgrey;}
+.header-session {font-weight: bold; color: lightgrey;}
 
 .center-content form,
 .center-content .welcome-message					{ clear:both; margin:15px auto 25px auto; }

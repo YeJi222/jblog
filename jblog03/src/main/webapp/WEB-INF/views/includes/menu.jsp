@@ -16,7 +16,7 @@
 		<c:otherwise>
 			<li class="menu-session">로그인</li>
 			<li class="menu-session">회원가입</li>
-			<li><a href="${pageContext.request.contextPath }/user/logout">로그아웃</a></li>
+			<li><a href="${pageContext.request.contextPath }/user/logout/main">로그아웃</a></li>
 			<li><a href="${pageContext.request.contextPath }/${authUser.id }">내블로그</a></li>
 		</c:otherwise>
 	</c:choose>

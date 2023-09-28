@@ -2,6 +2,7 @@ package com.poscodx.jblog.controller;
 
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -15,11 +16,15 @@ public class BlogController {
 	public String index(
 		@PathVariable("id") String blogId,
 		@PathVariable("categoryNo") @Nullable Long categoryNo,
-		@PathVariable("postNo") @Nullable Long postNo) {
+		@PathVariable("postNo") @Nullable Long postNo,
+		Model model) {
 		
-		System.out.println("blog id : " + blogId);
-		System.out.println("categoryNo : " + categoryNo);
-		System.out.println("postNo : " + postNo);
+//		System.out.println("blog id : " + blogId);
+//		System.out.println("categoryNo : " + categoryNo);
+//		System.out.println("postNo : " + postNo);
+		
+		model.addAttribute("blogId", blogId);
+		
 		return "blog/main";
 	}
 	
