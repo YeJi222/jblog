@@ -19,14 +19,14 @@ public class UserRepository {
 		return count == 1;
 	}
 	
-//	public UserVo findByEmailAndPassword(String email, String password) {
-//		Map<String, Object> map = new HashMap<>();
-//		map.put("email", email);
-//		map.put("password", password);
-//		
-//		return sqlSession.selectOne("user.findByEmailAndPassword", map);
-//	}
-//	
+	public UserVo findByIdAndPassword(String id, String password) {
+		Map<String, Object> map = new HashMap<>();
+		map.put("id", id);
+		map.put("password", password);
+		
+		return sqlSession.selectOne("user.findByIdAndPassword", map);
+	}
+	
 //	public UserVo findByNo(long no) {
 //		return sqlSession.selectOne("user.findByNo", no);
 //	}

@@ -15,12 +15,12 @@ public class UserService {
 		userRepository.insert(userVo);
 	}
 
-//	public UserVo getUser(String email, String password) {
-//		UserVo authUser = userRepository.findByEmailAndPassword(email, password);
-//		
-//		return authUser;
-//	}
-//
+	public UserVo getUser(String id, String password) {
+		UserVo authUser = userRepository.findByIdAndPassword(id, password);
+		
+		return authUser;
+	}
+
 //	public UserVo getUser(Long no) {
 //		UserVo authUser = userRepository.findByNo(no);
 //		
