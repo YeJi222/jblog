@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 import com.poscodx.jblog.vo.BlogVo;
 import com.poscodx.jblog.vo.UserVo;
 import com.poscodx.jblog.repository.BlogRepository;
-import com.poscodx.jblog.repository.UserRepository;
 
 @Service
 public class BlogService {
@@ -17,6 +16,10 @@ public class BlogService {
 	
 	public void makeBlog(@Valid UserVo vo) {
 		blogRepository.insert(vo);
+	}
+	
+	public BlogVo getBlogAdmin(String blogId) {
+		return blogRepository.find(blogId);
 	}
 
 	public void updateAdminBasic(BlogVo vo) {

@@ -9,14 +9,13 @@
 		]]>
 	</insert>
 	
-	<!-- <select id="find" resultType="sitevo">
+	<select id="find" resultType="blogvo" parameterType="string">
 		<![CDATA[
-			select title, welcome, profile, description
-				from site
-			order by no asc
-		   		limit 0, 1
+			select title, image
+				from blog
+			where blog_id = #{blog_id}
 		]]>
-	</select> -->
+	</select>
 
 	<!-- <update id="updateBasic" parameterType="blogvo">
 		<![CDATA[

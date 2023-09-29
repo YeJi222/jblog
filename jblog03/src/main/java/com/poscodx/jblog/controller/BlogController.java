@@ -32,6 +32,9 @@ public class BlogController {
 		@PathVariable("postNo") @Nullable Long postNo,
 		Model model) {
 		
+		BlogVo vo = blogService.getBlogAdmin(blogId);
+		model.addAttribute("blogVo", vo);
+		
 //		System.out.println("blog id : " + blogId);
 //		System.out.println("categoryNo : " + categoryNo);
 //		System.out.println("postNo : " + postNo);
@@ -44,6 +47,8 @@ public class BlogController {
 	// @ResponseBody
 	@RequestMapping("/admin/basic")
 	public String adminBasic(@PathVariable("id") String blogId, Model model) {
+		BlogVo vo = blogService.getBlogAdmin(blogId);
+		model.addAttribute("blogVo", vo);
 		model.addAttribute("selected", "basic");
 		model.addAttribute("blogId", blogId);
 		

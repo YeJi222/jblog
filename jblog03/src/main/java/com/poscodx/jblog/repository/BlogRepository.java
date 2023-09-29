@@ -30,6 +30,10 @@ public class BlogRepository {
 		int count = sqlSession.insert("blog.insert", vo);
 		return count == 1;
 	}
+	
+	public BlogVo find(String blogId) {
+		return sqlSession.selectOne("blog.find", blogId);
+	}
 
 	public void updateBasic(BlogVo vo) {
 		sqlSession.update("site.updateBasic", vo);
