@@ -1,15 +1,28 @@
 package com.poscodx.jblog.controller;
 
+import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
+
+import com.poscodx.jblog.service.BlogService;
+import com.poscodx.jblog.service.FileUploadService;
+import com.poscodx.jblog.vo.BlogVo;
 
 @Controller
 @RequestMapping("/{id:(?!assets).*}")
 public class BlogController {
+	@Autowired
+	private FileUploadService fileUploadService;
+	
+	@Autowired
+	private BlogService blogService;
 	
 	// @ResponseBody
 	@RequestMapping({"", "/{categoryNo}", "/{categoryNo}/{postNo}" })
@@ -53,5 +66,36 @@ public class BlogController {
 		model.addAttribute("blogId", blogId);
 		
 		return "blog/admin-write";
+	}
+	
+	@RequestMapping("/main/update")
+	public String update(BlogVo vo, @RequestParam("logo-file") MultipartFile file) {
+		
+		/* 이미지 파일 업로드 처리 */
+		String url = fileUploadService.restore(file);
+
+		// siteVo profile 셋 해주기 
+		if(url == null) { // before url로 세팅 
+			url = vo.getImage();
+		}
+		vo.setImage(url);
+		System.out.println("BlogVo" + vo);
+		
+		/* 
+		BlogVo blog = applicationContext.getBean(BlogVo.class);
+		*/
+		
+		blogService.updateAdminBasic(vo);
+		
+		/* ApplicationContext 주입받은 것 사용 */ 
+		/*
+		site.setTitle(vo.getTitle());
+		site.setWelcome(vo.getWelcome());
+		site.setProfile(vo.getProfile());
+		site.setDescription(vo.getDescription());
+		*/ 
+		// BeanUtils.copyProperties(vo, blog); // 위 코드 한 줄로 대체 가능 
+		
+		return "redirect:/admin/basic";
 	}
 }

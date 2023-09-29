@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="blog">
+	<insert id="insert" parameterType="blogvo">
+		<![CDATA[
+			insert
+				into blog (blog_id, title, image)
+			values(#{blogId}, #{title }, #{image })
+		]]>
+	</insert>
+	
+	<!-- <select id="find" resultType="sitevo">
+		<![CDATA[
+			select title, welcome, profile, description
+				from site
+			order by no asc
+		   		limit 0, 1
+		]]>
+	</select> -->
+
+	<!-- <update id="updateBasic" parameterType="blogvo">
+		<![CDATA[
+			update blog
+	   			set title = #{title },
+		   			image = #{image },
+	     	where blog_id = #{blog_id}      	
+		]]>
+	</update> -->
+</mapper>
