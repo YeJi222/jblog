@@ -47,8 +47,8 @@ public class BlogRepository {
 		return count == 1;
 	}
 
-	public List<CategoryVo> findAll() {
-		return sqlSession.selectList("category.findAll");
+	public List<CategoryVo> findAll(String blogId) {
+		return sqlSession.selectList("category.findAll", blogId);
 	}
 
 	

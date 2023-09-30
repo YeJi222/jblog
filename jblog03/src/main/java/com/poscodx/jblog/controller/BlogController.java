@@ -64,7 +64,7 @@ public class BlogController {
 		model.addAttribute("selected", "category");
 		model.addAttribute("blogId", blogId);
 		
-		List<CategoryVo> list = blogService.getContentsList();
+		List<CategoryVo> list = blogService.getContentsList(blogId);
 		model.addAttribute("list", list);
 		
 		return "blog/admin-category";
@@ -76,7 +76,7 @@ public class BlogController {
 		model.addAttribute("selected", "write");
 		model.addAttribute("blogId", blogId);
 		
-		List<CategoryVo> list = blogService.getContentsList();
+		List<CategoryVo> list = blogService.getContentsList(blogId);
 		model.addAttribute("list", list);
 		
 		return "blog/admin-write";
