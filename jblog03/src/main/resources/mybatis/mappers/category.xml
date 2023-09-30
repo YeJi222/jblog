@@ -8,4 +8,12 @@
 			values(#{name}, #{description}, #{blogId })
 		]]>
 	</insert>
+	
+	<select id="findAll" resultType="categoryvo">
+		<![CDATA[
+		  select no, name, description, blog_id
+		  	from category 
+		  order by no desc
+		]]>
+	</select>
 </mapper>

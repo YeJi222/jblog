@@ -1,5 +1,7 @@
 package com.poscodx.jblog.controller;
 
+import java.util.List;
+
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.lang.Nullable;
@@ -61,6 +63,9 @@ public class BlogController {
 		
 		model.addAttribute("selected", "category");
 		model.addAttribute("blogId", blogId);
+		
+		List<CategoryVo> list = blogService.getContentsList();
+		model.addAttribute("list", list);
 		
 		return "blog/admin-category";
 	}

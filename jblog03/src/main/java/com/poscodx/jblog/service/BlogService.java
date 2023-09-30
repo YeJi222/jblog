@@ -1,5 +1,7 @@
 package com.poscodx.jblog.service;
 
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +32,10 @@ public class BlogService {
 
 	public void addCategory(CategoryVo vo) {
 		blogRepository.insertCategory(vo);
+	}
+
+	public List<CategoryVo> getContentsList() {
+		return blogRepository.findAll();
 	}
 
 	

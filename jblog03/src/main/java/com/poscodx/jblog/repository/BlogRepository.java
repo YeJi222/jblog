@@ -1,6 +1,7 @@
 package com.poscodx.jblog.repository;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.validation.Valid;
@@ -44,6 +45,10 @@ public class BlogRepository {
 	public Boolean insertCategory(CategoryVo vo) {
 		int count = sqlSession.insert("category.insertCategory", vo);
 		return count == 1;
+	}
+
+	public List<CategoryVo> findAll() {
+		return sqlSession.selectList("category.findAll");
 	}
 
 	
