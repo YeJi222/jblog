@@ -76,6 +76,9 @@ public class BlogController {
 		model.addAttribute("selected", "write");
 		model.addAttribute("blogId", blogId);
 		
+		List<CategoryVo> list = blogService.getContentsList();
+		model.addAttribute("list", list);
+		
 		return "blog/admin-write";
 	}
 	

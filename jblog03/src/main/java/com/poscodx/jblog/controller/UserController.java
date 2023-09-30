@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.poscodx.jblog.service.BlogService;
 import com.poscodx.jblog.service.UserService;
+import com.poscodx.jblog.vo.CategoryVo;
 import com.poscodx.jblog.vo.UserVo;
 //import com.poscodx.jblog.security.Auth;
 //import com.poscodx.jblog.security.AuthUser;
@@ -43,6 +44,12 @@ public class UserController {
 		
 		userService.join(userVo);
 		blogService.makeBlog(userVo);
+		
+		CategoryVo categoryVo = new CategoryVo();
+		categoryVo.setBlogId(userVo.getId());
+		categoryVo.setName("미분류");
+		categoryVo.setDescription("카테고리를 지정하지 않은 경우");
+		blogService.addCategory(categoryVo);
 		
 		return "redirect:/user/joinsuccess";
 	}
