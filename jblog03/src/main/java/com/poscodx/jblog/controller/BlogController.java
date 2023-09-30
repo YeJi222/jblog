@@ -14,6 +14,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.poscodx.jblog.service.BlogService;
 import com.poscodx.jblog.service.FileUploadService;
 import com.poscodx.jblog.vo.BlogVo;
+import com.poscodx.jblog.vo.CategoryVo;
 
 @Controller
 @RequestMapping("/{id:(?!assets).*}")
@@ -73,7 +74,7 @@ public class BlogController {
 		return "blog/admin-write";
 	}
 	
-	@RequestMapping("/main/update")
+	@RequestMapping("/basic/update")
 	public String update(
 			@PathVariable("id") String blogId,
 			BlogVo vo, 
@@ -104,8 +105,20 @@ public class BlogController {
 //		site.setDescription(vo.getDescription());
 //		*/ 
 //		// BeanUtils.copyProperties(vo, blog); // 위 코드 한 줄로 대체 가능 
-//		
-		// return "blog/admin-basic";
+
 		return "redirect:/" + vo.getBlogId() + "/admin/basic";
+	}
+	
+	@RequestMapping("/category/update")
+	public String update(
+			@PathVariable("id") String blogId,
+			CategoryVo vo) {
+		
+		vo.setBlogId(blogId);
+		System.out.println("category vo : " + vo);
+		
+		blogService.addCategory(vo);
+		
+		return "redirect:/" + vo.getBlogId() + "/admin/category";
 	}
 }

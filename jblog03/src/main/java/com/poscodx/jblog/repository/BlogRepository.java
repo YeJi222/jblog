@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.poscodx.jblog.vo.BlogVo;
+import com.poscodx.jblog.vo.CategoryVo;
 import com.poscodx.jblog.vo.UserVo;
 
 @Repository
@@ -38,6 +39,11 @@ public class BlogRepository {
 	public void updateBasic(BlogVo vo) {
 		sqlSession.update("blog.updateBasic", vo);
 		
+	}
+
+	public Boolean insertCategory(CategoryVo vo) {
+		int count = sqlSession.insert("category.insertCategory", vo);
+		return count == 1;
 	}
 
 	
