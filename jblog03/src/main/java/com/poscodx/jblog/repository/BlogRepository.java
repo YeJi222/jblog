@@ -36,7 +36,7 @@ public class BlogRepository {
 	}
 
 	public void updateBasic(BlogVo vo) {
-		sqlSession.update("site.updateBasic", vo);
+		sqlSession.update("blog.updateBasic", vo);
 		
 	}
 

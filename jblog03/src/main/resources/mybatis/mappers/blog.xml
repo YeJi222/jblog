@@ -17,12 +17,11 @@
 		]]>
 	</select>
 
-	<!-- <update id="updateBasic" parameterType="blogvo">
+	<update id="updateBasic" parameterType="blogvo">
 		<![CDATA[
 			update blog
-	   			set title = #{title },
-		   			image = #{image },
-	     	where blog_id = #{blog_id}      	
+	   			set title = #{title }, image = #{image }
+	     	where blog_id = #{blogId}      	
 		]]>
-	</update> -->
+	</update>
 </mapper>

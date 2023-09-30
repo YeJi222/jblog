@@ -13,7 +13,7 @@ import com.poscodx.jblog.exception.FileUploadServiceException;
 
 @Service
 public class FileUploadService {
-	private static String SAVE_PATH = "/Users/yeji/mysite-uploads";
+	private static String SAVE_PATH = "/Users/yeji/jblog-uploads";
 	private static String URL_PATH = "/assets/upload-images";
 	
 	public String restore(MultipartFile file) {
@@ -34,9 +34,9 @@ public class FileUploadService {
 			String saveFilename = generateSaveFilename(extName);
 			Long fileSize = file.getSize();
 			
-			System.out.println("########" + originFilename);
-			System.out.println("########" + saveFilename);
-			System.out.println("########" + fileSize);
+//			System.out.println("########" + originFilename);
+//			System.out.println("########" + saveFilename);
+//			System.out.println("########" + fileSize);
 			
 			byte[] data = file.getBytes();
 			OutputStream os = new FileOutputStream(SAVE_PATH + "/" + saveFilename);

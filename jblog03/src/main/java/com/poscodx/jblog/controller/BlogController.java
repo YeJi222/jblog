@@ -74,7 +74,10 @@ public class BlogController {
 	}
 	
 	@RequestMapping("/main/update")
-	public String update(BlogVo vo, @RequestParam("logo-file") MultipartFile file) {
+	public String update(
+			@PathVariable("id") String blogId,
+			BlogVo vo, 
+			@RequestParam(value = "logo-file") MultipartFile file) {
 		
 		/* 이미지 파일 업로드 처리 */
 		String url = fileUploadService.restore(file);
@@ -83,24 +86,26 @@ public class BlogController {
 		if(url == null) { // before url로 세팅 
 			url = vo.getImage();
 		}
+		vo.setBlogId(blogId);
 		vo.setImage(url);
 		System.out.println("BlogVo" + vo);
-		
-		/* 
-		BlogVo blog = applicationContext.getBean(BlogVo.class);
-		*/
-		
+//		
+//		/* 
+//		BlogVo blog = applicationContext.getBean(BlogVo.class);
+//		*/
+//		
 		blogService.updateAdminBasic(vo);
-		
-		/* ApplicationContext 주입받은 것 사용 */ 
-		/*
-		site.setTitle(vo.getTitle());
-		site.setWelcome(vo.getWelcome());
-		site.setProfile(vo.getProfile());
-		site.setDescription(vo.getDescription());
-		*/ 
-		// BeanUtils.copyProperties(vo, blog); // 위 코드 한 줄로 대체 가능 
-		
-		return "redirect:/admin/basic";
+//		
+//		/* ApplicationContext 주입받은 것 사용 */ 
+//		/*
+//		site.setTitle(vo.getTitle());
+//		site.setWelcome(vo.getWelcome());
+//		site.setProfile(vo.getProfile());
+//		site.setDescription(vo.getDescription());
+//		*/ 
+//		// BeanUtils.copyProperties(vo, blog); // 위 코드 한 줄로 대체 가능 
+//		
+		// return "blog/admin-basic";
+		return "redirect:/" + vo.getBlogId() + "/admin/basic";
 	}
 }
