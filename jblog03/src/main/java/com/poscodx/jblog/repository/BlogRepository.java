@@ -12,6 +12,7 @@ import org.springframework.stereotype.Repository;
 
 import com.poscodx.jblog.vo.BlogVo;
 import com.poscodx.jblog.vo.CategoryVo;
+import com.poscodx.jblog.vo.PostVo;
 import com.poscodx.jblog.vo.UserVo;
 
 @Repository
@@ -57,6 +58,11 @@ public class BlogRepository {
         map.put("blogId", blogId);
         
 		return sqlSession.delete("category.delete", map);
+	}
+
+	public Boolean insertPost(PostVo vo) {
+		int count = sqlSession.insert("post.insertPost", vo);
+		return count == 1;
 	}
 
 	

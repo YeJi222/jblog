@@ -15,7 +15,7 @@
 		<div id="wrapper">
 			<div id="content" class="full-screen">
 				<c:import url="/WEB-INF/views/includes/admin-menu.jsp" />
-				<form action="" method="post">
+				<form action="${pageContext.request.contextPath }/${blogId}/write/add" method="post">
 			      	<table class="admin-cat-write">
 			      		<tr>
 			      			<td class="t">제목</td>
@@ -23,14 +23,14 @@
 			      				<input type="text" size="60" name="title">
 				      			<select name="category">
 				      				<c:forEach items="${list }" var="vo" varStatus="status">
-				      					<option>${vo.name }</option>
+				      					<option value="${vo.no }">${vo.name }</option>
 									</c:forEach>
 				      			</select>
 				      		</td>
 			      		</tr>
 			      		<tr>
 			      			<td class="t">내용</td>
-			      			<td><textarea name="content"></textarea></td>
+			      			<td><textarea name="contents"></textarea></td>
 			      		</tr>
 			      		<tr>
 			      			<td>&nbsp;</td>

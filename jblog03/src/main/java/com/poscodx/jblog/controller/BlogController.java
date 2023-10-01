@@ -18,6 +18,7 @@ import com.poscodx.jblog.service.BlogService;
 import com.poscodx.jblog.service.FileUploadService;
 import com.poscodx.jblog.vo.BlogVo;
 import com.poscodx.jblog.vo.CategoryVo;
+import com.poscodx.jblog.vo.PostVo;
 
 @Controller
 @RequestMapping("/{id:(?!assets).*}")
@@ -37,7 +38,7 @@ public class BlogController {
 		Model model) {
 		
 		BlogVo vo = blogService.getBlogAdmin(blogId);
-		System.out.println("vo : " + vo);
+		// System.out.println("vo : " + vo);
 		
 		if(vo == null) { // blogId 없으면 안뜨게 
 			return "error/404";
@@ -45,6 +46,9 @@ public class BlogController {
 		
 		model.addAttribute("blogVo", vo);
 		model.addAttribute("blogId", blogId);
+		
+		List<CategoryVo> categoryList = blogService.getContentsList(blogId);
+		model.addAttribute("categoryList", categoryList);
 		
 		/*
 		if (categoryNo.isPresent()) {
@@ -155,7 +159,20 @@ public class BlogController {
 		return "blog/admin-write";
 	}
 	
-	
+	@RequestMapping("/write/add")
+	public String adminWriteAdd(
+			@PathVariable("id") String blogId, 
+			@RequestParam(value="category", required=true, defaultValue="") String categoryNo,
+			PostVo vo) {
+		
+		vo.setCategoryNo(categoryNo);
+		System.out.println("post vo : " + vo);
+
+		// add post 
+		blogService.addPost(vo);
+		
+		return "redirect:/" + blogId;
+	}
 	
 	
 }

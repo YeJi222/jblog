@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.poscodx.jblog.vo.BlogVo;
 import com.poscodx.jblog.vo.CategoryVo;
+import com.poscodx.jblog.vo.PostVo;
 import com.poscodx.jblog.vo.UserVo;
 import com.poscodx.jblog.repository.BlogRepository;
 
@@ -40,6 +41,10 @@ public class BlogService {
 
 	public void deleteCategory(String blogId, Long no) {
 		blogRepository.deleteCategory(blogId, no);
+	}
+
+	public void addPost(PostVo vo) {
+		blogRepository.insertPost(vo);
 	}
 
 	
