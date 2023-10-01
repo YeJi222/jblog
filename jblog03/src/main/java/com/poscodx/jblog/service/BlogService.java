@@ -38,6 +38,10 @@ public class BlogService {
 		return blogRepository.findAll(blogId);
 	}
 
+	public void deleteCategory(String blogId, Long no) {
+		blogRepository.deleteCategory(blogId, no);
+	}
+
 	
 	
 }

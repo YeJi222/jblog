@@ -30,12 +30,16 @@
 							<td>${vo.name }</td>
 							<td>20</td>
 							<td>${vo.description }</td>
-							<td><img src="${pageContext.request.contextPath}/assets/images/delete.jpg"></td>
+							<td>
+								<a href="${pageContext.request.contextPath }/${blogId}/category/delete/${vo.no }">
+									<img src="${pageContext.request.contextPath}/assets/images/delete.jpg">
+								</a>
+							</td>
 						</tr>
 					</c:forEach>				  
 				</table>
       	
-      			<form method="post" action="${pageContext.request.contextPath }/${blogId}/category/update">
+      			<form method="post" action="${pageContext.request.contextPath }/${blogId}/category/add">
 	      			<h4 class="n-c">새로운 카테고리 추가</h4>
 			      	<table id="admin-cat-add">
 			      		<tr>

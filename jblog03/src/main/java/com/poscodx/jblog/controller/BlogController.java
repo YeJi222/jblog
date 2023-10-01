@@ -37,6 +37,12 @@ public class BlogController {
 		Model model) {
 		
 		BlogVo vo = blogService.getBlogAdmin(blogId);
+		System.out.println("vo : " + vo);
+		
+		if(vo == null) { // blogId 없으면 안뜨게 
+			return "error/404";
+		}
+		
 		model.addAttribute("blogVo", vo);
 		model.addAttribute("blogId", blogId);
 		
@@ -52,6 +58,8 @@ public class BlogController {
 		return "blog/main";
 	}
 	
+	////////////////// Basic //////////////////
+	
 	// @ResponseBody
 	@RequestMapping("/admin/basic")
 	public String adminBasic(@PathVariable("id") String blogId, Model model) {
@@ -61,30 +69,6 @@ public class BlogController {
 		model.addAttribute("blogId", blogId);
 		
 		return "blog/admin-basic";
-	}
-	
-	@RequestMapping("/admin/category")
-	public String adminCategory(@PathVariable("id") String blogId, Model model) {
-		
-		model.addAttribute("selected", "category");
-		model.addAttribute("blogId", blogId);
-		
-		List<CategoryVo> list = blogService.getContentsList(blogId);
-		model.addAttribute("list", list);
-		
-		return "blog/admin-category";
-	}
-	
-	@RequestMapping("/admin/write")
-	public String adminWrite(@PathVariable("id") String blogId, Model model) {
-		
-		model.addAttribute("selected", "write");
-		model.addAttribute("blogId", blogId);
-		
-		List<CategoryVo> list = blogService.getContentsList(blogId);
-		model.addAttribute("list", list);
-		
-		return "blog/admin-write";
 	}
 	
 	@RequestMapping("/basic/update")
@@ -122,7 +106,20 @@ public class BlogController {
 		return "redirect:/" + vo.getBlogId() + "/admin/basic";
 	}
 	
-	@RequestMapping("/category/update")
+	////////////////// Category //////////////////
+	@RequestMapping("/admin/category")
+	public String adminCategory(@PathVariable("id") String blogId, Model model) {
+		
+		model.addAttribute("selected", "category");
+		model.addAttribute("blogId", blogId);
+		
+		List<CategoryVo> list = blogService.getContentsList(blogId);
+		model.addAttribute("list", list);
+		
+		return "blog/admin-category";
+	}
+	
+	@RequestMapping("/category/add")
 	public String update(
 			@PathVariable("id") String blogId,
 			CategoryVo vo) {
@@ -132,6 +129,33 @@ public class BlogController {
 		
 		blogService.addCategory(vo);
 		
-		return "redirect:/" + vo.getBlogId() + "/admin/category";
+		return "redirect:/" + blogId + "/admin/category";
 	}
+	
+	@RequestMapping("/category/delete/{no}")
+	public String delete(
+			@PathVariable("id") String blogId,
+			@PathVariable("no") Long no) {
+		
+		blogService.deleteCategory(blogId, no);
+		
+		return "redirect:/" + blogId + "/admin/category";
+	}
+	
+	////////////////// Post //////////////////
+	@RequestMapping("/admin/write")
+	public String adminWrite(@PathVariable("id") String blogId, Model model) {
+		
+		model.addAttribute("selected", "write");
+		model.addAttribute("blogId", blogId);
+		
+		List<CategoryVo> list = blogService.getContentsList(blogId);
+		model.addAttribute("list", list);
+		
+		return "blog/admin-write";
+	}
+	
+	
+	
+	
 }

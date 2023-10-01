@@ -17,4 +17,13 @@
 		 	order by no desc
 		]]>
 	</select>
+	
+	<delete id="delete" parameterType="map" > 
+		<![CDATA[
+			delete
+				from category
+			where no = #{no }
+				and blog_id = #{blogId }
+		]]>	
+	</delete>
 </mapper>

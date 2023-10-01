@@ -51,6 +51,14 @@ public class BlogRepository {
 		return sqlSession.selectList("category.findAll", blogId);
 	}
 
+	public int deleteCategory(String blogId, Long no) {
+		Map<String, Object> map = new HashMap<String, Object>();
+        map.put("no", no);
+        map.put("blogId", blogId);
+        
+		return sqlSession.delete("category.delete", map);
+	}
+
 	
 	
 	
