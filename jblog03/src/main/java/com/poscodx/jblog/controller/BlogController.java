@@ -1,6 +1,7 @@
 package com.poscodx.jblog.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,18 +32,22 @@ public class BlogController {
 	@RequestMapping({"", "/{categoryNo}", "/{categoryNo}/{postNo}" })
 	public String index(
 		@PathVariable("id") String blogId,
-		@PathVariable("categoryNo") @Nullable Long categoryNo,
-		@PathVariable("postNo") @Nullable Long postNo,
+		@PathVariable("categoryNo") Optional<Long> categoryNo,
+		@PathVariable("postNo") Optional<Long> postNo,
 		Model model) {
 		
 		BlogVo vo = blogService.getBlogAdmin(blogId);
 		model.addAttribute("blogVo", vo);
-		
-//		System.out.println("blog id : " + blogId);
-//		System.out.println("categoryNo : " + categoryNo);
-//		System.out.println("postNo : " + postNo);
-		
 		model.addAttribute("blogId", blogId);
+		
+		/*
+		if (categoryNo.isPresent()) {
+	        Long categoryNumber = categoryNo.get();
+	    }
+	    if (postNo.isPresent()) {
+	        Long postNumber = postNo.get();
+	    }
+		*/
 		
 		return "blog/main";
 	}
