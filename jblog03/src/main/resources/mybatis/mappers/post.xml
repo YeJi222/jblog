@@ -21,6 +21,18 @@
 		]]>
 	</select>
 	
+	<select id="findAllByCategory" resultType="postvo" parameterType="map">
+		<![CDATA[
+		  select post.no, title, contents, category_no as categoryNo, 
+		  	date_format(reg_date, '%Y/%m/%d') as regDate
+		  from post join category
+		  	where category.no = post.category_no and
+		  category.blog_id = #{blogId} and category_no = #{categoryNo}
+		  	order by post.reg_date desc
+		  limit 0, 5;
+		]]>
+	</select>
+	
 	<!-- 
 	<delete id="delete" parameterType="map" > 
 		<![CDATA[

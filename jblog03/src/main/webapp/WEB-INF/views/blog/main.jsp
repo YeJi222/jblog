@@ -24,7 +24,7 @@
 				<ul class="blog-list">
 					<c:set var="count" value="${fn:length(postList) }" />
 					<c:forEach items="${postList }" var="vo" varStatus="status">
-						<li><a href="">${vo.title }</a> <span>${vo.regDate }</span></li>
+						<li><a href="${pageContext.request.contextPath}/${blogId}/${vo.categoryNo}/${vo.no}">${vo.title }</a> <span>${vo.regDate }</span></li>
 					</c:forEach>
 				</ul>
 			</div>
@@ -41,7 +41,7 @@
 			<ul>
 				<c:set var="count" value="${fn:length(categoryList) }" />
 				<c:forEach items="${categoryList }" var="vo" varStatus="status">
-					<li><a href="">${vo.name }</a></li>
+					<li><a href="${pageContext.request.contextPath}/${blogId}/${vo.no}">${vo.name }</a></li>
 				</c:forEach>
 			</ul>
 		</div>

@@ -50,19 +50,25 @@ public class BlogController {
 		List<CategoryVo> categoryList = blogService.getCategoryList(blogId);
 		model.addAttribute("categoryList", categoryList);
 		
-		List<PostVo> postList = blogService.getPostList(blogId);
-		model.addAttribute("postList", postList);
-		
-		// System.out.println("postList : " + postList);
-		
-		/*
-		if (categoryNo.isPresent()) {
-	        Long categoryNumber = categoryNo.get();
-	    }
-	    if (postNo.isPresent()) {
-	        Long postNumber = postNo.get();
-	    }
-		*/
+		if(categoryNo.isEmpty() && postNo.isEmpty()) { // blogId만 입력받는 경우 
+			List<PostVo> postList = blogService.getPostList(blogId);
+			model.addAttribute("postList", postList);
+			
+			System.out.println("1");
+		} else if(categoryNo.isPresent() && postNo.isEmpty()) { // blogId, categoryNo 입력받은 경우 
+			List<PostVo> postList = blogService.getPostListByCategory(blogId, categoryNo.get());
+			model.addAttribute("postList", postList);
+			
+			// System.out.println(postList);
+			// 카테고리에 post가 없는 경우??
+			
+			System.out.println("2");
+		} else { // blogId, categoryNo, postNo 입력받은 경우 
+			Long categoryNumber = categoryNo.get();
+			Long postNumber = postNo.get();
+			
+			System.out.println("3");
+		}
 		
 		return "blog/main";
 	}

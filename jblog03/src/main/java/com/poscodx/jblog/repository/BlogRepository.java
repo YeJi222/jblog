@@ -69,6 +69,16 @@ public class BlogRepository {
 		return sqlSession.selectList("post.findAll", blogId);
 	}
 
+	public List<PostVo> findAllPostByCategory(String blogId, Long categoryNo) {
+		Map<String, Object> map = new HashMap<String, Object>();
+        map.put("blogId", blogId);
+        map.put("categoryNo", categoryNo);
+        
+        System.out.println("category num : " + categoryNo);
+        
+		return sqlSession.selectList("post.findAllByCategory", map);
+	}
+
 	
 	
 	

@@ -51,6 +51,10 @@ public class BlogService {
 		return blogRepository.findAllPost(blogId);
 	}
 
+	public List<PostVo> getPostListByCategory(String blogId, Long categoryNo) {
+		return blogRepository.findAllPostByCategory(blogId, categoryNo);
+	}
+
 	
 	
 }
