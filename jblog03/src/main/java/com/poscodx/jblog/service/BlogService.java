@@ -35,7 +35,7 @@ public class BlogService {
 		blogRepository.insertCategory(vo);
 	}
 
-	public List<CategoryVo> getContentsList(String blogId) {
+	public List<CategoryVo> getCategoryList(String blogId) {
 		return blogRepository.findAll(blogId);
 	}
 
@@ -45,6 +45,10 @@ public class BlogService {
 
 	public void addPost(PostVo vo) {
 		blogRepository.insertPost(vo);
+	}
+
+	public List<PostVo> getPostList(String blogId) {
+		return blogRepository.findAllPost(blogId);
 	}
 
 	

@@ -47,8 +47,13 @@ public class BlogController {
 		model.addAttribute("blogVo", vo);
 		model.addAttribute("blogId", blogId);
 		
-		List<CategoryVo> categoryList = blogService.getContentsList(blogId);
+		List<CategoryVo> categoryList = blogService.getCategoryList(blogId);
 		model.addAttribute("categoryList", categoryList);
+		
+		List<PostVo> postList = blogService.getPostList(blogId);
+		model.addAttribute("postList", postList);
+		
+		// System.out.println("postList : " + postList);
 		
 		/*
 		if (categoryNo.isPresent()) {
@@ -90,7 +95,7 @@ public class BlogController {
 		}
 		vo.setBlogId(blogId);
 		vo.setImage(url);
-		System.out.println("BlogVo" + vo);
+		// System.out.println("BlogVo" + vo);
 //		
 //		/* 
 //		BlogVo blog = applicationContext.getBean(BlogVo.class);
@@ -117,7 +122,7 @@ public class BlogController {
 		model.addAttribute("selected", "category");
 		model.addAttribute("blogId", blogId);
 		
-		List<CategoryVo> list = blogService.getContentsList(blogId);
+		List<CategoryVo> list = blogService.getCategoryList(blogId);
 		model.addAttribute("list", list);
 		
 		return "blog/admin-category";
@@ -153,7 +158,7 @@ public class BlogController {
 		model.addAttribute("selected", "write");
 		model.addAttribute("blogId", blogId);
 		
-		List<CategoryVo> list = blogService.getContentsList(blogId);
+		List<CategoryVo> list = blogService.getCategoryList(blogId);
 		model.addAttribute("list", list);
 		
 		return "blog/admin-write";

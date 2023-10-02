@@ -65,6 +65,10 @@ public class BlogRepository {
 		return count == 1;
 	}
 
+	public List<PostVo> findAllPost(String blogId) {
+		return sqlSession.selectList("post.findAll", blogId);
+	}
+
 	
 	
 	

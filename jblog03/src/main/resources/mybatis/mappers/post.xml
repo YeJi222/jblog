@@ -9,15 +9,19 @@
 		]]>
 	</insert>
 	
-	<!-- <select id="findAll" resultType="categoryvo" parameterType="string">
+	<select id="findAll" resultType="postvo" parameterType="string">
 		<![CDATA[
-		  select no, name, description, blog_id
-		  	from category 
-		  where blog_id = #{blogId}
-		 	order by no desc
+		  select post.no, title, contents, category_no as categoryNo, 
+		  	date_format(reg_date, '%Y/%m/%d') as regDate
+		  from post join category
+		  	where category.no = post.category_no and
+		  category.blog_id = #{blogId}
+		  	order by post.reg_date desc
+		  limit 0, 5;
 		]]>
 	</select>
 	
+	<!-- 
 	<delete id="delete" parameterType="map" > 
 		<![CDATA[
 			delete
