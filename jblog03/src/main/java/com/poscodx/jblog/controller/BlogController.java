@@ -56,29 +56,13 @@ public class BlogController {
 			model.addAttribute("postList", postList);
 			model.addAttribute("postNo", 0);
 			
-			// post가 없는 경우
-			if(postList.isEmpty()) {
-				System.out.println("아직 등록된 게시글이 없습니다");
-				
-				PostVo postVo = new PostVo();
-				postVo.setContents("아직 등록된 게시글이 없습니다");
-				postList.add(postVo);
-				model.addAttribute("postList", postList);
-			}
+			emptyPost(postList, model); // post가 없는 경우
 		} else if(categoryNo.isPresent() && postNo.isEmpty()) { // blogId, categoryNo 입력받은 경우 
 			List<PostVo> postList = blogService.getPostListByCategory(blogId, categoryNo.get());
 			model.addAttribute("postList", postList);
 			model.addAttribute("postNo", 0);
 			
-			// post가 없는 경우
-			if(postList.isEmpty()) {
-				System.out.println("아직 등록된 게시글이 없습니다");
-				
-				PostVo postVo = new PostVo();
-				postVo.setContents("아직 등록된 게시글이 없습니다");
-				postList.add(postVo);
-				model.addAttribute("postList", postList);
-			}
+			emptyPost(postList, model); // post가 없는 경우
 		} else { // blogId, categoryNo, postNo 입력받은 경우
 			List<PostVo> postList = blogService.getPostList(blogId);
 			
@@ -93,18 +77,21 @@ public class BlogController {
 			model.addAttribute("postList", postList);
 			model.addAttribute("postNo", idx);
 			
-			// post가 없는 경우
-			if(postList.isEmpty()) {
-				System.out.println("아직 등록된 게시글이 없습니다");
-				
-				PostVo postVo = new PostVo();
-				postVo.setContents("아직 등록된 게시글이 없습니다");
-				postList.add(postVo);
-				model.addAttribute("postList", postList);
-			}
+			emptyPost(postList, model); // post가 없는 경우
 		}
 		
 		return "blog/main";
+	}
+	
+	public void emptyPost(List<PostVo> postList, Model model) {
+		if(postList.isEmpty()) {
+			// System.out.println("아직 등록된 게시글이 없습니다");
+			
+			PostVo postVo = new PostVo();
+			postVo.setContents("아직 등록된 게시글이 없습니다");
+			postList.add(postVo);
+			model.addAttribute("postList", postList);
+		}
 	}
 	
 	////////////////// Basic //////////////////
