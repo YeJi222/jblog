@@ -31,7 +31,7 @@ a:hover 		{ color:#dc143c; text-decoration:none; font-weight:bold; }
 .login-form										{ width:250px; padding:10px; border:1px solid #bbb;	}
 .login-form input, .login-form label			{ display:block }
 .login-form label								{ text-align:left; color:#555; margin-bottom:2px; font-weight:bold; }
-.login-form input[type='text'], input[type='password']	{ margin-bottom:10px; width:230px; padding:5px }
+.login-form input[type='text'], .login-form input[type='password']	{ margin-bottom:10px; width:230px; padding:5px }
 
 .join-form										{ text-align:left; width:250px; padding:10px; border:1px solid #bbb; }
 .join-form label, .join-form fieldset legend	{ color:#555; margin-bottom:2px; font-weight:bold; }
