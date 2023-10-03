@@ -3,7 +3,7 @@
 <mapper namespace="blog">
 	<insert id="insert" parameterType="blogvo">
 		<![CDATA[
-			insert
+			nsert
 				into blog (blog_id, title, image)
 			values(#{blogId}, #{title }, #{image })
 		]]>

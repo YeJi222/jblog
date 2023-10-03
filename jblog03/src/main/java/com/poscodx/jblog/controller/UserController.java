@@ -6,6 +6,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -41,15 +42,14 @@ public class UserController {
 		}
 		
 		// System.out.println("userVo : " + userVo);
-		
-		userService.join(userVo);
-		blogService.makeBlog(userVo);
-		
 		CategoryVo categoryVo = new CategoryVo();
 		categoryVo.setBlogId(userVo.getId());
 		categoryVo.setName("미분류");
 		categoryVo.setDescription("카테고리를 지정하지 않은 경우");
-		blogService.addCategory(categoryVo);
+		
+		userService.join(userVo, categoryVo);
+//		blogService.makeBlog(userVo);
+//		blogService.addCategory(categoryVo);
 		
 		return "redirect:/user/joinsuccess";
 	}

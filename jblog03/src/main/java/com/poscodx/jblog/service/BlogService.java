@@ -6,6 +6,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.poscodx.jblog.vo.BlogVo;
 import com.poscodx.jblog.vo.CategoryVo;
@@ -18,9 +19,9 @@ public class BlogService {
 	@Autowired
 	private BlogRepository blogRepository;
 	
-	public void makeBlog(@Valid UserVo vo) {
-		blogRepository.insert(vo);
-	}
+//	public void makeBlog(@Valid UserVo vo) {
+//		blogRepository.insert(vo);
+//	}
 	
 	public BlogVo getBlogAdmin(String blogId) {
 		return blogRepository.find(blogId);
