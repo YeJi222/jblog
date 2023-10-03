@@ -1,5 +1,6 @@
 package com.poscodx.jblog.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -53,21 +54,54 @@ public class BlogController {
 		if(categoryNo.isEmpty() && postNo.isEmpty()) { // blogId만 입력받는 경우 
 			List<PostVo> postList = blogService.getPostList(blogId);
 			model.addAttribute("postList", postList);
+			model.addAttribute("postNo", 0);
 			
-			System.out.println("1");
+			// post가 없는 경우
+			if(postList.isEmpty()) {
+				System.out.println("아직 등록된 게시글이 없습니다");
+				
+				PostVo postVo = new PostVo();
+				postVo.setContents("아직 등록된 게시글이 없습니다");
+				postList.add(postVo);
+				model.addAttribute("postList", postList);
+			}
 		} else if(categoryNo.isPresent() && postNo.isEmpty()) { // blogId, categoryNo 입력받은 경우 
 			List<PostVo> postList = blogService.getPostListByCategory(blogId, categoryNo.get());
 			model.addAttribute("postList", postList);
+			model.addAttribute("postNo", 0);
 			
-			// System.out.println(postList);
-			// 카테고리에 post가 없는 경우??
+			// post가 없는 경우
+			if(postList.isEmpty()) {
+				System.out.println("아직 등록된 게시글이 없습니다");
+				
+				PostVo postVo = new PostVo();
+				postVo.setContents("아직 등록된 게시글이 없습니다");
+				postList.add(postVo);
+				model.addAttribute("postList", postList);
+			}
+		} else { // blogId, categoryNo, postNo 입력받은 경우
+			List<PostVo> postList = blogService.getPostList(blogId);
 			
-			System.out.println("2");
-		} else { // blogId, categoryNo, postNo 입력받은 경우 
-			Long categoryNumber = categoryNo.get();
-			Long postNumber = postNo.get();
+			int idx = 0;
+			for(PostVo data : postList) {
+				if(data.getNo() == postNo.get()) {
+					break;
+				}
+				idx++;
+			}
+			// System.out.println("idx : " + idx);
+			model.addAttribute("postList", postList);
+			model.addAttribute("postNo", idx);
 			
-			System.out.println("3");
+			// post가 없는 경우
+			if(postList.isEmpty()) {
+				System.out.println("아직 등록된 게시글이 없습니다");
+				
+				PostVo postVo = new PostVo();
+				postVo.setContents("아직 등록된 게시글이 없습니다");
+				postList.add(postVo);
+				model.addAttribute("postList", postList);
+			}
 		}
 		
 		return "blog/main";

@@ -74,10 +74,16 @@ public class BlogRepository {
         map.put("blogId", blogId);
         map.put("categoryNo", categoryNo);
         
-        System.out.println("category num : " + categoryNo);
-        
 		return sqlSession.selectList("post.findAllByCategory", map);
 	}
+
+//	public PostVo findPostByPostNo(String blogId, Long postNo) {
+//		Map<String, Object> map = new HashMap<String, Object>();
+//        map.put("blogId", blogId);
+//        map.put("postNo", postNo);
+//        
+//		return sqlSession.selectOne("post.findPostByPostNo", map);
+//	}
 
 	
 	

@@ -16,9 +16,9 @@
 		<div id="wrapper">
 			<div id="content">
 				<div class="blog-content">
-					<h4>${postList[0].title }</h4>
+					<h4>${postList[postNo].title }</h4>
 					<p>
-						${fn:replace(postList[0].contents, newline, "<br>") }
+						${fn:replace(postList[postNo].contents, newline, "<br>") }
 					<p>
 				</div>
 				<ul class="blog-list">

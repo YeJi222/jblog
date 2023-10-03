@@ -29,7 +29,6 @@ public class BlogService {
 
 	public void updateAdminBasic(BlogVo vo) {
 		blogRepository.updateBasic(vo);
-		
 	}
 
 	public void addCategory(CategoryVo vo) {
@@ -56,6 +55,7 @@ public class BlogService {
 		return blogRepository.findAllPostByCategory(blogId, categoryNo);
 	}
 
-	
-	
+//	public PostVo getPostByPostNo(String blogId, Long postNo) {
+//		return blogRepository.findPostByPostNo(blogId, postNo);
+//	}
 }
