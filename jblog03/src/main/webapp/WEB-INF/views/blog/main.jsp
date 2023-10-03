@@ -24,7 +24,7 @@
 				<ul class="blog-list">
 					<c:set var="count" value="${fn:length(postList) }" />
 					<c:forEach items="${postList }" var="vo" varStatus="status">
-						<li><a href="${pageContext.request.contextPath}/${blogId}/${vo.categoryNo}/${vo.no}">${vo.title }</a> <span>${vo.regDate }</span></li>
+						<li><a href="${pageContext.request.contextPath}/${blogId}/${vo.categoryNo}/${vo.no}?type=${type}">${vo.title }</a> <span>${vo.regDate }</span></li>
 					</c:forEach>
 				</ul>
 			</div>

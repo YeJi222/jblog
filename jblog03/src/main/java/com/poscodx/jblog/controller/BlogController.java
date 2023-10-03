@@ -36,6 +36,7 @@ public class BlogController {
 		@PathVariable("id") String blogId,
 		@PathVariable("categoryNo") Optional<Long> categoryNo,
 		@PathVariable("postNo") Optional<Long> postNo,
+		@RequestParam(value="type", required=true, defaultValue="") String type,
 		Model model) {
 		
 		BlogVo vo = blogService.getBlogAdmin(blogId);
@@ -55,16 +56,25 @@ public class BlogController {
 			List<PostVo> postList = blogService.getPostList(blogId);
 			model.addAttribute("postList", postList);
 			model.addAttribute("postNo", 0);
+			model.addAttribute("type", "total");
 			
 			emptyPost(postList, model); // post가 없는 경우
 		} else if(categoryNo.isPresent() && postNo.isEmpty()) { // blogId, categoryNo 입력받은 경우 
 			List<PostVo> postList = blogService.getPostListByCategory(blogId, categoryNo.get());
 			model.addAttribute("postList", postList);
 			model.addAttribute("postNo", 0);
+			model.addAttribute("type", "category");
 			
 			emptyPost(postList, model); // post가 없는 경우
 		} else { // blogId, categoryNo, postNo 입력받은 경우
-			List<PostVo> postList = blogService.getPostList(blogId);
+			// System.out.println("type : " + type);
+			
+			List<PostVo> postList = new ArrayList<>();
+			if("total".equals(type)) {
+				postList = blogService.getPostList(blogId);
+			} else {
+				postList = blogService.getPostListByCategory(blogId, categoryNo.get());
+			}
 			
 			int idx = 0;
 			for(PostVo data : postList) {
@@ -73,9 +83,9 @@ public class BlogController {
 				}
 				idx++;
 			}
-			// System.out.println("idx : " + idx);
 			model.addAttribute("postList", postList);
 			model.addAttribute("postNo", idx);
+			model.addAttribute("type", type);
 			
 			emptyPost(postList, model); // post가 없는 경우
 		}
