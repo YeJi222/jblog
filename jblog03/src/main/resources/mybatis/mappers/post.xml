@@ -16,8 +16,7 @@
 		  from post join category
 		  	where category.no = post.category_no and
 		  category.blog_id = #{blogId}
-		  	order by post.reg_date desc
-		  limit 0, 5;
+		  	order by post.reg_date desc;
 		]]>
 	</select>
 	
@@ -28,8 +27,16 @@
 		  from post join category
 		  	where category.no = post.category_no and
 		  category.blog_id = #{blogId} and category_no = #{categoryNo}
-		  	order by post.reg_date desc
-		  limit 0, 5;
+		  	order by post.reg_date desc;
+		]]>
+	</select>
+	
+	<select id="getPostCount" resultType="int" parameterType="map">
+		<![CDATA[
+		  select count(*)
+		  	from post join category
+		  where category.no = post.category_no and
+		  	category.blog_id = #{blogId} and category.no = #{categoryNo}
 		]]>
 	</select>
 	

@@ -77,6 +77,14 @@ public class BlogRepository {
 		return sqlSession.selectList("post.findAllByCategory", map);
 	}
 
+	public int getPostCount(String blogId, Long categoryNo) {
+		Map<String, Object> map = new HashMap<String, Object>();
+        map.put("blogId", blogId);
+        map.put("categoryNo", categoryNo);
+        
+		return sqlSession.selectOne("post.getPostCount", map);
+	}
+
 //	public PostVo findPostByPostNo(String blogId, Long postNo) {
 //		Map<String, Object> map = new HashMap<String, Object>();
 //        map.put("blogId", blogId);

@@ -28,7 +28,7 @@
 						<tr>
 							<td>${count - status.index }</td>
 							<td>${vo.name }</td>
-							<td>20</td>
+							<td>${postCountList[status.index] }</td>
 							<td>${vo.description }</td>
 							<td>
 								<a href="${pageContext.request.contextPath }/${blogId}/category/delete/${vo.no }">

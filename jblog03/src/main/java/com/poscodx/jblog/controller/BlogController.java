@@ -162,7 +162,25 @@ public class BlogController {
 		model.addAttribute("blogId", blogId);
 		
 		List<CategoryVo> list = blogService.getCategoryList(blogId);
+		List<String> postCountList = new ArrayList<>();
+		for(int i = 0 ; i < list.size() ; i++) {
+			Long categoryNo = list.get(i).getNo();
+			System.out.println("category name : " + list.get(i).getName());
+			
+			int postCount = blogService.getPostCount(blogId, categoryNo);
+			// System.out.println("postCount : " + postCount);
+			postCountList.add(Integer.toString(postCount));
+		}
+		// System.out.println("postCountList : " + postCountList);
+		
 		model.addAttribute("list", list);
+		model.addAttribute("postCountList", postCountList);
+		
+		String title = blogService.getBlogAdmin(blogId).getTitle();
+		BlogVo blogVo = new BlogVo();
+		blogVo.setTitle(title);
+		
+		model.addAttribute("blogVo", blogVo);
 		
 		return "blog/admin-category";
 	}
@@ -199,6 +217,12 @@ public class BlogController {
 		
 		List<CategoryVo> list = blogService.getCategoryList(blogId);
 		model.addAttribute("list", list);
+		
+		String title = blogService.getBlogAdmin(blogId).getTitle();
+		BlogVo blogVo = new BlogVo();
+		blogVo.setTitle(title);
+		
+		model.addAttribute("blogVo", blogVo);
 		
 		return "blog/admin-write";
 	}
