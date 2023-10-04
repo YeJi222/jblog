@@ -3,7 +3,9 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <div id="header">
-	<h1>${blogVo.title }</h1>
+	<h1>
+		<a class="header-title" href="${pageContext.request.contextPath}/${blogId}">${blogVo.title }</a>
+	</h1>
 	<ul>
 		<c:choose>
 			<c:when test="${empty authUser }">
