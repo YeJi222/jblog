@@ -125,6 +125,8 @@ public class BlogController {
 		
 		/* 이미지 파일 업로드 처리 */
 		String url = fileUploadService.restore(file);
+		
+		System.out.println("file - " + vo);
 
 		// siteVo profile 셋 해주기 
 		if(url == null) { // before url로 세팅 
