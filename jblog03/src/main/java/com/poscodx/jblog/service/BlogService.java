@@ -58,8 +58,4 @@ public class BlogService {
 	public int getPostCount(String blogId, Long categoryNo) {
 		return blogRepository.getPostCount(blogId, categoryNo);
 	}
-
-//	public PostVo getPostByPostNo(String blogId, Long postNo) {
-//		return blogRepository.findPostByPostNo(blogId, postNo);
-//	}
 }

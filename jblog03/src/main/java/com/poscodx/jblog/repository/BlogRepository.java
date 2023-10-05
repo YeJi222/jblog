@@ -21,14 +21,10 @@ public class BlogRepository {
 	private SqlSession sqlSession;
 	
 	public Boolean insert(@Valid UserVo userVo) {
-		// System.out.println("blog repository : " + userVo);
-		
 		BlogVo vo = new BlogVo();
 		vo.setBlogId(userVo.getId());
 		vo.setTitle("블로그 타이틀을 설정하세요");
 		vo.setImage("/assets/images/spring-logo.jpg");
-		
-		// System.out.println(vo);
 		
 		int count = sqlSession.insert("blog.insert", vo);
 		return count == 1;
@@ -84,16 +80,4 @@ public class BlogRepository {
         
 		return sqlSession.selectOne("post.getPostCount", map);
 	}
-
-//	public PostVo findPostByPostNo(String blogId, Long postNo) {
-//		Map<String, Object> map = new HashMap<String, Object>();
-//        map.put("blogId", blogId);
-//        map.put("postNo", postNo);
-//        
-//		return sqlSession.selectOne("post.findPostByPostNo", map);
-//	}
-
-	
-	
-	
 }

@@ -21,10 +21,6 @@ public class AdminInterceptor implements HandlerInterceptor {
 		HttpSession session = request.getSession();
 		UserVo userVo = (UserVo) session.getAttribute("authUser");
 		
-//		System.out.println("admin interceptor");
-//		System.out.println("blog id : " + blogId);
-//		System.out.println("authUser : " + userVo);
-		
 		if(userVo == null || !(userVo.getId().equals(blogId))) { // 권한 없는 경우 
 			System.out.println("자신의 블로그 관리자 페이지에만 들어갈 수 있습니다.");
 			response.sendRedirect(request.getContextPath() + "/" + blogId);

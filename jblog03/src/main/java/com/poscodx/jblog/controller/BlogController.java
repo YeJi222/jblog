@@ -4,15 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.poscodx.jblog.service.BlogService;
@@ -30,7 +27,6 @@ public class BlogController {
 	@Autowired
 	private BlogService blogService;
 	
-	// @ResponseBody
 	@RequestMapping({"", "/{categoryNo}", "/{categoryNo}/{postNo}" })
 	public String index(
 		@PathVariable("id") String blogId,
@@ -40,8 +36,6 @@ public class BlogController {
 		Model model) {
 		
 		BlogVo vo = blogService.getBlogAdmin(blogId);
-		// System.out.println("vo : " + vo);
-		
 		if(vo == null) { // blogId 없으면 안뜨게 
 			return "error/404";
 		}
@@ -67,8 +61,6 @@ public class BlogController {
 			
 			emptyPost(postList, model); // post가 없는 경우
 		} else { // blogId, categoryNo, postNo 입력받은 경우
-			// System.out.println("type : " + type);
-			
 			List<PostVo> postList = new ArrayList<>();
 			if("total".equals(type)) {
 				postList = blogService.getPostList(blogId);
@@ -95,8 +87,6 @@ public class BlogController {
 	
 	public void emptyPost(List<PostVo> postList, Model model) {
 		if(postList.isEmpty()) {
-			// System.out.println("아직 등록된 게시글이 없습니다");
-			
 			PostVo postVo = new PostVo();
 			postVo.setContents("아직 등록된 게시글이 없습니다");
 			postList.add(postVo);
@@ -105,8 +95,6 @@ public class BlogController {
 	}
 	
 	////////////////// Basic //////////////////
-	
-	// @ResponseBody
 	@RequestMapping("/admin/basic")
 	public String adminBasic(@PathVariable("id") String blogId, Model model) {
 		BlogVo vo = blogService.getBlogAdmin(blogId);
@@ -134,23 +122,8 @@ public class BlogController {
 		}
 		vo.setBlogId(blogId);
 		vo.setImage(url);
-		// System.out.println("BlogVo" + vo);
-//		
-//		/* 
-//		BlogVo blog = applicationContext.getBean(BlogVo.class);
-//		*/
-//		
 		blogService.updateAdminBasic(vo);
-//		
-//		/* ApplicationContext 주입받은 것 사용 */ 
-//		/*
-//		site.setTitle(vo.getTitle());
-//		site.setWelcome(vo.getWelcome());
-//		site.setProfile(vo.getProfile());
-//		site.setDescription(vo.getDescription());
-//		*/ 
-//		// BeanUtils.copyProperties(vo, blog); // 위 코드 한 줄로 대체 가능 
-
+		
 		return "redirect:/" + vo.getBlogId() + "/admin/basic";
 	}
 	
@@ -168,10 +141,8 @@ public class BlogController {
 			System.out.println("category name : " + list.get(i).getName());
 			
 			int postCount = blogService.getPostCount(blogId, categoryNo);
-			// System.out.println("postCount : " + postCount);
 			postCountList.add(Integer.toString(postCount));
 		}
-		// System.out.println("postCountList : " + postCountList);
 		
 		model.addAttribute("list", list);
 		model.addAttribute("postCountList", postCountList);
@@ -241,6 +212,4 @@ public class BlogController {
 		
 		return "redirect:/" + blogId;
 	}
-	
-	
 }

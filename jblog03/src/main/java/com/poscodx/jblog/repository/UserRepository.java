@@ -26,12 +26,4 @@ public class UserRepository {
 		
 		return sqlSession.selectOne("user.findByIdAndPassword", map);
 	}
-	
-//	public UserVo findByNo(long no) {
-//		return sqlSession.selectOne("user.findByNo", no);
-//	}
-//	
-//	public void update(UserVo vo) {
-//		sqlSession.update("user.update", vo);
-//	}
 }
