@@ -24,6 +24,6 @@ public class UserRepository {
 		map.put("id", id);
 		map.put("password", password);
 		
-		return sqlSession.selectOne("user.findByIdAndPassword", map);
+		return sqlSession.selectOne("users.findByIdAndPassword", map);
 	}
 }
