@@ -3,7 +3,11 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <div id="header">
-	<h1>
+	<a href="${pageContext.request.contextPath}" style="display: grid; grid-template-columns: 35px 40px">
+		<img src="/jblog03/assets/images/jlogo.png" width="25px;" style="margin: 5px;" />
+		<span style="font-size: 18px; margin-top: 9px; color: white;">JBlog</span>
+	</a>
+	<h1 class="title-area" style="margin-top: -30px;">
 		<a class="header-title" href="${pageContext.request.contextPath}/${blogId}">${blogVo.title }</a>
 	</h1>
 	<ul>
