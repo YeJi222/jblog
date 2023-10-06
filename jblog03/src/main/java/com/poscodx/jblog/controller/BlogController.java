@@ -46,41 +46,37 @@ public class BlogController {
 		List<CategoryVo> categoryList = blogService.getCategoryList(blogId);
 		model.addAttribute("categoryList", categoryList);
 		
+		List<PostVo> postList = new ArrayList<>();
+		Long postCount = (long) 0;
+		String typeStr = "";
+		
 		if(categoryNo.isEmpty() && postNo.isEmpty()) { // blogId만 입력받는 경우 
-			List<PostVo> postList = blogService.getPostList(blogId);
-			model.addAttribute("postList", postList);
-			model.addAttribute("postNo", 0);
-			model.addAttribute("type", "total");
-			
-			emptyPost(postList, model); // post가 없는 경우
+			postList = blogService.getPostList(blogId);
+			typeStr = "total";
 		} else if(categoryNo.isPresent() && postNo.isEmpty()) { // blogId, categoryNo 입력받은 경우 
-			List<PostVo> postList = blogService.getPostListByCategory(blogId, categoryNo.get());
-			model.addAttribute("postList", postList);
-			model.addAttribute("postNo", 0);
-			model.addAttribute("type", "category");
-			
-			emptyPost(postList, model); // post가 없는 경우
+			postList = blogService.getPostListByCategory(blogId, categoryNo.get());
+			typeStr = "category";
 		} else { // blogId, categoryNo, postNo 입력받은 경우
-			List<PostVo> postList = new ArrayList<>();
+			postList = new ArrayList<>();
 			if("total".equals(type)) {
 				postList = blogService.getPostList(blogId);
 			} else {
 				postList = blogService.getPostListByCategory(blogId, categoryNo.get());
 			}
 			
-			int idx = 0;
+			Long idx = (long) 0;
 			for(PostVo data : postList) {
-				if(data.getNo() == postNo.get()) {
-					break;
-				}
+				if(data.getNo() == postNo.get()) break;
 				idx++;
 			}
-			model.addAttribute("postList", postList);
-			model.addAttribute("postNo", idx);
-			model.addAttribute("type", type);
-			
-			emptyPost(postList, model); // post가 없는 경우
+			postCount = idx;
+			typeStr = type;
 		}
+		emptyPost(postList, model); // post가 없는 경우
+		
+		model.addAttribute("postList", postList);
+		model.addAttribute("postNo", postCount);
+		model.addAttribute("type", typeStr);
 		
 		return "blog/main";
 	}
