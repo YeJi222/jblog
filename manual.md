@@ -69,7 +69,6 @@ applicationContext.xml
 - JBlog 로고를 누르면 항상 'http://localhost:8080/jblog03/' 경로의 메인 화면으로 이동할 수 있다
 <img width="156" alt="image" src="https://github.com/YeJi222/jblog/assets/70511859/5f970228-4491-4a4f-abeb-1edf35ded8fb">
 
-
 #### (회원정보 관련 - user)
 1. 회원가입
 - 회원정보 등록
@@ -114,8 +113,12 @@ applicationContext.xml
   - '로그아웃'만 활성화
   - '블로그 관리, 로그인'는 연한 색 표시, 링크 연결되지 않도록
   <img width="827" alt="image" src="https://github.com/YeJi222/jblog/assets/70511859/a48c5010-65e3-428d-bf28-2210af1f8536">
+- 블로그 이름을 클릭하면, 항상 'http://localhost:8088/jblog/[사용자 아이디]' 주소로 접근하여 블로그 링크로 이동가능
+- 왼쪽 상단의 JBlog를 클릭하면, 'http://localhost:8080/jblog03/' 경로의 메인 화면으로 이동가능
+<img width="75" alt="image" src="https://github.com/YeJi222/jblog/assets/70511859/58a7f507-807c-4348-b1be-f354d7acebdb">
 
 #### (블로그 관련 - blog)
+- http://localhost:8088/jblog/[사용자 아이디]
 1. 블로그 화면
 - 회원가입을 하면 해당 사용자의 블로그가 지동 생성
 - 자동 생성된 블로그에서 블로그 이름, 카테고리, 게시글 등이 디폴트로 설정된다
@@ -123,12 +126,33 @@ applicationContext.xml
 <img width="826" alt="image" src="https://github.com/YeJi222/jblog/assets/70511859/8d4d4ba9-0607-423c-904f-036015088440">
 
 - 생성된 블로그는 블로그 주인뿐만 아니라 인증 없는 외부 접근이 가능
+- 로그인 세션 정보가 없는 상태에서도, 블로그 주소 접근 가능
+<img width="826" alt="image" src="https://github.com/YeJi222/jblog/assets/70511859/79c84ae5-7d80-4a8c-bfef-ffd3ff559e00">
+
+- 오른쪽에는 블로그 로고 사진, 카테고리 리스트가 위치하고 있다
+- 'http://localhost:8088/jblog/[사용자 아이디]'로 접속하면, 기본적으로 해당 블로그의 전체 블로그 리스트와 가장 최근 게시글을 보여준다
+- URL : http://localhost:8080/jblog03/yizi
+<img width="831" alt="image" src="https://github.com/YeJi222/jblog/assets/70511859/461fb595-665c-4595-879e-042f6c34a100">
+
+- 카테고리를 누르면, 카테고리에 해당되는 게시글 리스트와 카테고리 내, 가장 최근 게시글을 보여준다
+- '스프링' 카테고리를 클릭했을 때
+- URL : http://localhost:8080/jblog03/yizi/6
+- jblog03/사용자ID/카테고리Num
+<img width="828" alt="image" src="https://github.com/YeJi222/jblog/assets/70511859/8c3daf8e-a628-403a-9a6d-8a2e831aa078">
+
+- 게시글 리스트에서 게시글 제목을 누르면, 해당 게시글의 제목과 내용을 보여준다
+- URL : http://localhost:8080/jblog03/yizi/6/7?type=category
+- jblog03/사용자ID/카테고리Num/게시글Num
+<img width="826" alt="image" src="https://github.com/YeJi222/jblog/assets/70511859/473a5491-c8d8-4039-bf1e-2d6a64bc0c39">
+
+
+
+
+
+
+2. 블로그 관리 페이지 
 - 인증된 사용자가 자신의 블로그에 접근하면 관리메뉴가 나타나고 관리 메뉴를 통해 블로그 관리페이지에 접근할 수 있다
 - 관리 페이지에서는 블로그의 여러 설정을 변경할 수 있다
-
-
-2. 
-
 
 
 
