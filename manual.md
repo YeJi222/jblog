@@ -14,7 +14,7 @@ $ git clone https://github.com/YeJi222/jblog.git
 - jblog 모델 mwb 파일 : jblog/schema/jblog.mwb
 <img width="521" alt="image" src="https://github.com/YeJi222/jblog/assets/70511859/ecc2ddaa-df69-49e0-9012-9df54522c8ba">
 
-- java file
+- 주요 files 
 ```txt
 [src/main/java]
 /com
