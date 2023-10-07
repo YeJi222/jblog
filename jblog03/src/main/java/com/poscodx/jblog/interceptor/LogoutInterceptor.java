@@ -1,4 +1,4 @@
-package com.poscodx.jblog.security;
+package com.poscodx.jblog.interceptor;
 
 import org.springframework.web.servlet.HandlerInterceptor;
 

@@ -1,4 +1,4 @@
-package com.poscodx.jblog.security;
+package com.poscodx.jblog.interceptor;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
