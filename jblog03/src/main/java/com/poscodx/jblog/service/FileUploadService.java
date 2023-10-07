@@ -32,11 +32,6 @@ public class FileUploadService {
 			String originFilename = file.getOriginalFilename();
 			String extName = originFilename.substring(originFilename.lastIndexOf(".") + 1);
 			String saveFilename = generateSaveFilename(extName);
-			Long fileSize = file.getSize();
-			
-//			System.out.println("########" + originFilename);
-//			System.out.println("########" + saveFilename);
-//			System.out.println("########" + fileSize);
 			
 			byte[] data = file.getBytes();
 			OutputStream os = new FileOutputStream(SAVE_PATH + "/" + saveFilename);
@@ -67,5 +62,4 @@ public class FileUploadService {
 		
 		return filename;
 	}
-
 }
