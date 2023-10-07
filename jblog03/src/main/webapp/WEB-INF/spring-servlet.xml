@@ -28,16 +28,16 @@
 	<mvc:interceptors>
 		<mvc:interceptor>
 			<mvc:mapping path="/user/auth"/>
-			<bean class="com.poscodx.jblog.security.LoginInterceptor" />
+			<bean class="com.poscodx.jblog.interceptor.LoginInterceptor" />
 		</mvc:interceptor>
 		<mvc:interceptor>
 			<mvc:mapping path="/user/logout/main"/>
 			<mvc:mapping path="/user/logout/**"/>
-			<bean class="com.poscodx.jblog.security.LogoutInterceptor" />
+			<bean class="com.poscodx.jblog.interceptor.LogoutInterceptor" />
 		</mvc:interceptor>
 		<mvc:interceptor>
 			<mvc:mapping path="/**/admin/**"/>
-			<bean class="com.poscodx.jblog.security.AdminInterceptor" />
+			<bean class="com.poscodx.jblog.interceptor.AdminInterceptor" />
 		</mvc:interceptor>
 	</mvc:interceptors>
 	

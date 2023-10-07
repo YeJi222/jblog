@@ -21,7 +21,9 @@ public class UserController {
 	private UserService userService;
 
 	@RequestMapping(value="/join", method=RequestMethod.GET)
-	public String join(@ModelAttribute UserVo userVo) {
+	public String join(@ModelAttribute UserVo userVo, Model model) {
+		model.addAttribute("joinResult", true);
+		
 		return "user/join";
 	}
 
@@ -29,6 +31,7 @@ public class UserController {
 	public String join(@ModelAttribute @Valid UserVo userVo, BindingResult result, Model model) {
 		if(result.hasErrors()) {
 			model.addAllAttributes(result.getModel());
+			model.addAttribute("joinResult", true);
 			return "user/join";
 		}
 		CategoryVo categoryVo = new CategoryVo();
