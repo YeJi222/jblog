@@ -79,4 +79,19 @@ public class BlogRepository {
         
 		return sqlSession.selectOne("post.getPostCount", map);
 	}
+
+	public int deletePost(Long postNo) {
+		Map<String, Object> map = new HashMap<String, Object>();
+        map.put("postNo", postNo);
+        
+		return sqlSession.delete("post.delete", map);
+	}
+
+	public List<Long> findPostNoList(String blogId, Long categoryNo) {
+		Map<String, Object> map = new HashMap<String, Object>();
+        map.put("blogId", blogId);
+        map.put("categoryNo", categoryNo);
+        
+		return sqlSession.selectList("post.getPostNo", map);
+	}
 }

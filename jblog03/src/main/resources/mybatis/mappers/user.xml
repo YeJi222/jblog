@@ -19,4 +19,11 @@
 				and password = password(#{password })
 		]]>
 	</select>
+	
+	<select id="findUsers" resultType="uservo">
+		<![CDATA[
+		  select id, name, password
+		  	from user;
+		]]>
+	</select>
 </mapper>

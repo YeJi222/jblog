@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.poscodx.jblog.vo.BlogVo;
 import com.poscodx.jblog.vo.CategoryVo;
@@ -31,7 +32,13 @@ public class BlogService {
 		return blogRepository.findAll(blogId);
 	}
 
+	@Transactional
 	public void deleteCategory(String blogId, Long no) {
+		List<Long> postNoList = blogRepository.findPostNoList(blogId, no);
+		
+		for(int i = 0 ; i < postNoList.size() ; i++) {
+			blogRepository.deletePost(postNoList.get(i));
+		}
 		blogRepository.deleteCategory(blogId, no);
 	}
 
