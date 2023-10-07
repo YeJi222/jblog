@@ -51,6 +51,9 @@
 			</fieldset>
 
 			<input type="submit" value="가입하기">
+			<c:if test="${!joinResult}" >
+				<p style="color: red;">기존에 존재하는 id 입니다. 다른 id로 입력하세요.</p>
+			</c:if>
 
 		</form:form>
 	</div>

@@ -22,10 +22,18 @@ public class UserService {
 	private BlogRepository blogRepository;
 
 	@Transactional
-	public void join(@Valid UserVo userVo, CategoryVo categoryVo) {
-		userRepository.insert(userVo);
-		blogRepository.insert(userVo);
-		blogRepository.insertCategory(categoryVo);
+	public Boolean join(@Valid UserVo userVo, CategoryVo categoryVo) {
+		int userExist = userRepository.userCheck(userVo.getId());
+		
+		if(userExist == 0) {
+			userRepository.insert(userVo);
+			blogRepository.insert(userVo);
+			blogRepository.insertCategory(categoryVo);
+			
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 	public UserVo getUser(String id, String password) {

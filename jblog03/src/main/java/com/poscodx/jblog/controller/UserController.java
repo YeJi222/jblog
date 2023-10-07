@@ -36,9 +36,15 @@ public class UserController {
 		categoryVo.setName("미분류");
 		categoryVo.setDescription("카테고리를 지정하지 않은 경우");
 		
-		userService.join(userVo, categoryVo);
-		
-		return "redirect:/user/joinsuccess";
+		Boolean joinResult = userService.join(userVo, categoryVo);
+		if(joinResult) {
+			return "redirect:/user/joinsuccess";
+		} else {
+			System.out.println("기존에 존재하는 id 입니다. 다른 id로 입력하세요");
+			model.addAttribute("joinResult", joinResult);
+			
+			return "user/join";
+		}
 	}
 	
 	@RequestMapping(value="/joinsuccess", method=RequestMethod.GET)

@@ -26,4 +26,12 @@
 		  	from user;
 		]]>
 	</select>
+	
+	<select id="userCheck" resultType="int">
+		<![CDATA[
+		  select count(*)
+		  	from user
+		  where id = #{id}
+		]]>
+	</select>
 </mapper>

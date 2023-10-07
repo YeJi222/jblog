@@ -7,9 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.poscodx.jblog.service.BlogService;
 import com.poscodx.jblog.service.UserService;
-import com.poscodx.jblog.vo.BlogVo;
 import com.poscodx.jblog.vo.UserVo;
 
 @Controller
