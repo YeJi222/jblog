@@ -1,6 +1,7 @@
 package com.poscodx.jblog.repository;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
@@ -13,9 +14,16 @@ import com.poscodx.jblog.vo.UserVo;
 public class UserRepository {
 	@Autowired
 	private SqlSession sqlSession;
+
+	public int userCheck(String id) {
+		int count = sqlSession.selectOne("user.userCheck", id);
+		
+		return count;
+	}
 	
 	public Boolean insert(UserVo vo) {
 		int count = sqlSession.insert("user.insert", vo);
+		
 		return count == 1;
 	}
 	
@@ -25,5 +33,9 @@ public class UserRepository {
 		map.put("password", password);
 		
 		return sqlSession.selectOne("user.findByIdAndPassword", map);
+	}
+
+	public List<UserVo> getUsers() {
+		return sqlSession.selectList("user.findUsers");
 	}
 }

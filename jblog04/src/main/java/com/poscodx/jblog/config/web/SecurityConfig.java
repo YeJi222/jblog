@@ -1,18 +1,15 @@
 package com.poscodx.jblog.config.web;
 
-import java.util.List;
-
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-import com.poscodx.jblog.security.AdminInterceptor;
-import com.poscodx.jblog.security.LoginInterceptor;
-import com.poscodx.jblog.security.LogoutInterceptor;
+import com.poscodx.jblog.interceptor.AdminInterceptor;
+import com.poscodx.jblog.interceptor.LoginInterceptor;
+import com.poscodx.jblog.interceptor.LogoutInterceptor;
 
 @Configuration
 @EnableWebMvc

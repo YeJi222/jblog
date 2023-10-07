@@ -21,7 +21,9 @@ public class UserController {
 	private UserService userService;
 
 	@RequestMapping(value="/join", method=RequestMethod.GET)
-	public String join(@ModelAttribute UserVo userVo) {
+	public String join(@ModelAttribute UserVo userVo, Model model) {
+		model.addAttribute("joinResult", true);
+		
 		return "user/join";
 	}
 
@@ -29,6 +31,7 @@ public class UserController {
 	public String join(@ModelAttribute @Valid UserVo userVo, BindingResult result, Model model) {
 		if(result.hasErrors()) {
 			model.addAllAttributes(result.getModel());
+			model.addAttribute("joinResult", true);
 			return "user/join";
 		}
 		CategoryVo categoryVo = new CategoryVo();
@@ -36,9 +39,15 @@ public class UserController {
 		categoryVo.setName("미분류");
 		categoryVo.setDescription("카테고리를 지정하지 않은 경우");
 		
-		userService.join(userVo, categoryVo);
-		
-		return "redirect:/user/joinsuccess";
+		Boolean joinResult = userService.join(userVo, categoryVo);
+		if(joinResult) {
+			return "redirect:/user/joinsuccess";
+		} else {
+			System.out.println("기존에 존재하는 id 입니다. 다른 id로 입력하세요");
+			model.addAttribute("joinResult", joinResult);
+			
+			return "user/join";
+		}
 	}
 	
 	@RequestMapping(value="/joinsuccess", method=RequestMethod.GET)
@@ -51,9 +60,9 @@ public class UserController {
 		return "user/login";
 	}
 	
-	@RequestMapping("/auth")
-	public void auth() {
-	}
+//	@RequestMapping("/auth")
+//	public void auth() {
+//	}
 	
 //	@RequestMapping("/logout/**")
 //	public void logout() {
