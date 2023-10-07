@@ -99,6 +99,28 @@ applicationContext.xml
   - 블로그 리스트에 'hong's Blog'가 추가된 것을 확인할 수 있다
   <img width="406" alt="image" src="https://github.com/YeJi222/jblog/assets/70511859/ef17dae9-831b-4b20-aade-ee7de420be9d">
 
+3. 블로그 주소에서, 인증 유무에 따른 Top 상태 변화
+- 로그인 전 Top
+  - '로그인'만 활성화
+  - '블로그 관리, 로그아웃'은 연한 색 표시, 링크 연결되지 않도록
+  <img width="827" alt="image" src="https://github.com/YeJi222/jblog/assets/70511859/34ea6480-b174-421f-b8af-220ecfc0c3e7">
+
+- 로그인 후 Top
+  - '블로그 관리, 로그아웃'만 활성화
+  - '로그인'는 연한 색 표시, 링크 연결되지 않도록
+  <img width="826" alt="image" src="https://github.com/YeJi222/jblog/assets/70511859/b793b956-546a-462c-b920-1ea53c3e9b66">
+
+- 자신의 블로그가 아닌 다른 블로그 주소에서 로그인 후 Top
+  - '로그아웃'만 활성화
+  - '블로그 관리, 로그인'는 연한 색 표시, 링크 연결되지 않도록
+  <img width="827" alt="image" src="https://github.com/YeJi222/jblog/assets/70511859/a48c5010-65e3-428d-bf28-2210af1f8536">
+
+
+
+
+
+
+
 
 
 
