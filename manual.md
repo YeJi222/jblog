@@ -85,6 +85,10 @@ applicationContext.xml
 - 회원가입 완료
 <img width="428" alt="image" src="https://github.com/YeJi222/jblog/assets/70511859/9f2cfaec-b499-4015-a867-cab57b11147f">
 
+- ** 트랜잭션 사용
+  - 회원가입 시, user 테이블에 회원 정보 삽입, blog 테이블에 블로그 정보 삽입, category 테이블에 '미분류' 카테고리 삽입이 이루어진다
+  - 하나라도 실패하면, 롤백이 일어나도록 트랜잭션을 적용하였다 
+
 2. 로그인
 - 로그인 정보 입력
 <img width="268" alt="image" src="https://github.com/YeJi222/jblog/assets/70511859/2c5331c1-b829-4c9a-8849-c3d3119624e5">
@@ -117,9 +121,8 @@ applicationContext.xml
 - 왼쪽 상단의 JBlog를 클릭하면, 'http://localhost:8080/jblog03/' 경로의 메인 화면으로 이동가능
 <img width="75" alt="image" src="https://github.com/YeJi222/jblog/assets/70511859/58a7f507-807c-4348-b1be-f354d7acebdb">
 
-#### (블로그 관련 - blog)
+#### (블로그 화면)
 - http://localhost:8088/jblog/[사용자 아이디]
-1. 블로그 화면
 - 회원가입을 하면 해당 사용자의 블로그가 지동 생성
 - 자동 생성된 블로그에서 블로그 이름, 카테고리, 게시글 등이 디폴트로 설정된다
 - 블로그 관리에서 블로그 이름, 카테고리, 게시글 등 추가 및 세팅할 수 있다 
@@ -145,20 +148,60 @@ applicationContext.xml
 - jblog03/사용자ID/카테고리Num/게시글Num
 <img width="826" alt="image" src="https://github.com/YeJi222/jblog/assets/70511859/473a5491-c8d8-4039-bf1e-2d6a64bc0c39">
 
+- 등록된 게시글이 없는 경우 
+<img width="826" alt="image" src="https://github.com/YeJi222/jblog/assets/70511859/94d5d319-6abb-412f-8133-671cbd4e3066">
 
-
-
-
-
-2. 블로그 관리 페이지 
+#### (블로그 관리 페이지 화면)
 - 인증된 사용자가 자신의 블로그에 접근하면 관리메뉴가 나타나고 관리 메뉴를 통해 블로그 관리페이지에 접근할 수 있다
 - 관리 페이지에서는 블로그의 여러 설정을 변경할 수 있다
 
+1. 기본설정(admin-main)
+- 블로그 제목, 로고 이미지 변경 가능
+- 변경 전
+<img width="830" alt="image" src="https://github.com/YeJi222/jblog/assets/70511859/84ccdbb2-2cae-454e-b475-e958aef6f1d6">
 
+- 변경 후
+<img width="829" alt="image" src="https://github.com/YeJi222/jblog/assets/70511859/44fd6aff-2b5f-4e59-b80d-3428d6fa0de1">
 
+- 블로그 화면에도 블로그 제목과 로고 이미지가 변경된 것을 확인할 수 있다
+<img width="826" alt="image" src="https://github.com/YeJi222/jblog/assets/70511859/babb5472-c692-4924-8d98-07e5a89382bf">
 
+2. 카테고리(admin-category) 및 글작성(admin-write)
+- 회원가입 후, 자동 생성된 블로그는 디폴트로 '미분류' 카테고리가 함께 생성된다
+- 카테고리 페이지에서 새로운 카테고리를 생성 및 삭제할 수 있다
+- 카테고리를 삭제하면, 해당 카테고리에 있던 게시글들이 모두 삭제 된 후, 카테고리가 삭제된다
+- ** 이때, 트랜잭션을 사용하여, 게시글 삭제나 카테고리 삭제에 하나라도 문제가 있을 경우 롤백이 일어나게 하였다   
 
+- 카테고리 추가
+<img width="218" alt="image" src="https://github.com/YeJi222/jblog/assets/70511859/85384dec-7951-4314-9472-a272814764eb">
 
+- 추가된 것 확인 
+<img width="661" alt="image" src="https://github.com/YeJi222/jblog/assets/70511859/44ee0258-5f68-4847-8d49-5d0f51be52bb">
 
+- 카테고리 리스트에도 추가된 것 확인 가능 
+<img width="180" alt="image" src="https://github.com/YeJi222/jblog/assets/70511859/7f340202-86a4-477e-b4a5-dc0842a61737">
 
+- 글 작성시, 추가한 카테고리 선택 가능 
+<img width="488" alt="image" src="https://github.com/YeJi222/jblog/assets/70511859/38bad89a-767c-49d5-949d-e19db7d77c65">
+
+- 글 작성하기
+<img width="495" alt="image" src="https://github.com/YeJi222/jblog/assets/70511859/f4b94d2b-d57a-43f4-be96-b84258fb5869">
+
+- 추가한 게시글 확인
+<img width="820" alt="image" src="https://github.com/YeJi222/jblog/assets/70511859/24022edd-56d9-4a2d-a8f9-dffebf95fde4">
+
+- 카테고리 테이블 포스트 수에도 반영된 것을 확인 가능 
+ <img width="666" alt="image" src="https://github.com/YeJi222/jblog/assets/70511859/3f305d7e-57b1-46f3-ae14-cc7d2bda2a83">
+
+- 카테고리 삭제
+<img width="663" alt="image" src="https://github.com/YeJi222/jblog/assets/70511859/6f885bd9-8dce-49e3-b378-be7ae35b9e13">
+
+- 미분류 카테고리에 게시글 두 개를 추가한 후, 삭제해보기
+- '미분류' 카테고리와 해당 카테고리에 있던 게시글 모두 삭제된 것을 확인
+<img width="663" alt="image" src="https://github.com/YeJi222/jblog/assets/70511859/2fbecd46-de61-4e2f-84c0-4ee23f0a3181">
+
+- 블로그 화면에서도 '미분류' 카테고리가 삭제되고, 전체 리스트에도 해당 게시글들이 삭제된 것을 확인할 수 있다
+<img width="824" alt="image" src="https://github.com/YeJi222/jblog/assets/70511859/e15c7687-ca0f-4634-b1e4-ef52319be8d6">
+
+- (+) 로그인을 하더라도, 자신의 블로그가 아닌데 블로그 관리 페이지로 접속하려고 시도하면, 해당 블로그 주인의 블로그 화면으로 이동하도록 Interceptor를 구성하였다
 
