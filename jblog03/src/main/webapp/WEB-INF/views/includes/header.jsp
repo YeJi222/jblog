@@ -8,7 +8,7 @@
 		<span style="font-size: 18px; margin-top: 9px; color: white;">JBlog</span>
 	</a>
 	<h1 class="title-area" style="margin-top: -30px;">
-		<a class="header-title" href="${pageContext.request.contextPath}/${blogId}">${blogVo.title }</a>
+		<a class="header-title" href="${pageContext.request.contextPath}/${blogVo.blogId}">${blogVo.title }</a>
 	</h1>
 	<ul>
 		<c:choose>
@@ -17,15 +17,15 @@
 				<li class="header-session">로그아웃</li>
 				<li class="header-session">블로그 관리</li>
 			</c:when>
-			<c:when test="${authUser.id != blogId}">
+			<c:when test="${authUser.id != blogVo.blogId}">
 				<li class="header-session">로그인</li>
-				<li><a href="${pageContext.request.contextPath }/user/logout/${blogId}">로그아웃</a></li>
+				<li><a href="${pageContext.request.contextPath }/user/logout/${blogVo.blogId}">로그아웃</a></li>
 				<li class="header-session">블로그 관리</li>
 			</c:when>
 			<c:otherwise>
 				<li class="header-session">로그인</li>
-				<li><a href="${pageContext.request.contextPath }/user/logout/${blogId}">로그아웃</a></li>
-				<li><a href="${pageContext.request.contextPath }/${blogId}/admin/basic">블로그 관리</a></li>
+				<li><a href="${pageContext.request.contextPath }/user/logout/${blogVo.blogId}">로그아웃</a></li>
+				<li><a href="${pageContext.request.contextPath }/${blogVo.blogId}/admin/basic">블로그 관리</a></li>
 			</c:otherwise>
 		</c:choose>
 	</ul>

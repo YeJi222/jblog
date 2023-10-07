@@ -27,6 +27,7 @@ public class BlogController {
 	@Autowired
 	private BlogService blogService;
 	
+	// ------------------------- Blog Main ------------------------- //
 	@RequestMapping({"", "/{categoryNo}", "/{categoryNo}/{postNo}" })
 	public String index(
 		@PathVariable("id") String blogId,
@@ -35,19 +36,17 @@ public class BlogController {
 		@RequestParam(value="type", required=true, defaultValue="") String type,
 		Model model) {
 		
-		BlogVo vo = blogService.getBlogAdmin(blogId);
-		if(vo == null) { // blogId 없으면 안뜨게 
+		BlogVo blogVo = blogService.getBlogAdmin(blogId);
+		if(blogVo == null) { // blogId 없는 경우(회원 등록이 되어있지 않은 경우) 블로그가 생성되지 않도록
 			return "error/404";
 		}
-		
-		model.addAttribute("blogVo", vo);
-		model.addAttribute("blogId", blogId);
-		
 		List<CategoryVo> categoryList = blogService.getCategoryList(blogId);
+		
+		model.addAttribute("blogVo", blogVo);
 		model.addAttribute("categoryList", categoryList);
 		
 		List<PostVo> postList = new ArrayList<>();
-		Long postCount = (long) 0;
+		Long postIdx = (long) 0; // post list의 index 
 		String typeStr = "";
 		
 		if(categoryNo.isEmpty() && postNo.isEmpty()) { // blogId만 입력받는 경우 
@@ -57,31 +56,30 @@ public class BlogController {
 			postList = blogService.getPostListByCategory(blogId, categoryNo.get());
 			typeStr = "category";
 		} else { // blogId, categoryNo, postNo 입력받은 경우
-			postList = new ArrayList<>();
-			if("total".equals(type)) {
+			postList = new ArrayList<>(); // 리스트 초기화 
+			if("total".equals(type)) { // 전체 글 리스트 보여주기 위해 
 				postList = blogService.getPostList(blogId);
-			} else {
+			} else { // 카테고리에 해당하는 글 리스트만 보여주기 위해 
 				postList = blogService.getPostListByCategory(blogId, categoryNo.get());
 			}
 			
-			Long idx = (long) 0;
 			for(PostVo data : postList) {
 				if(data.getNo() == postNo.get()) break;
-				idx++;
+				postIdx++;
 			}
-			postCount = idx;
 			typeStr = type;
 		}
 		emptyPost(postList, model); // post가 없는 경우
 		
 		model.addAttribute("postList", postList);
-		model.addAttribute("postNo", postCount);
+		model.addAttribute("postIdx", postIdx);
 		model.addAttribute("type", typeStr);
 		
 		return "blog/main";
 	}
 	
-	public void emptyPost(List<PostVo> postList, Model model) {
+	// 등록된 게시글이 없는 경우
+	public void emptyPost(List<PostVo> postList, Model model) { 
 		if(postList.isEmpty()) {
 			PostVo postVo = new PostVo();
 			postVo.setContents("아직 등록된 게시글이 없습니다");
@@ -90,63 +88,47 @@ public class BlogController {
 		}
 	}
 	
-	////////////////// Basic //////////////////
+	// ------------------------- Admin Basic ------------------------- //
 	@RequestMapping("/admin/basic")
 	public String adminBasic(@PathVariable("id") String blogId, Model model) {
-		BlogVo vo = blogService.getBlogAdmin(blogId);
-		model.addAttribute("blogVo", vo);
+		BlogVo blogVo = blogService.getBlogAdmin(blogId);
+		model.addAttribute("blogVo", blogVo);
 		model.addAttribute("selected", "basic");
-		model.addAttribute("blogId", blogId);
 		
 		return "blog/admin-basic";
 	}
 	
 	@RequestMapping("/basic/update")
 	public String update(
-			@PathVariable("id") String blogId,
-			BlogVo vo, 
+			@PathVariable("id") String blogId, BlogVo vo, 
 			@RequestParam(value = "logo-file") MultipartFile file) {
 		
-		/* 이미지 파일 업로드 처리 */
 		String url = fileUploadService.restore(file);
-		
-		System.out.println("file - " + vo);
-
-		// siteVo profile 셋 해주기 
-		if(url == null) { // before url로 세팅 
+		if(url == null) { // 이전 이미지 url로 세팅 
 			url = vo.getImage();
 		}
-		vo.setBlogId(blogId);
 		vo.setImage(url);
 		blogService.updateAdminBasic(vo);
 		
-		return "redirect:/" + vo.getBlogId() + "/admin/basic";
+		return "redirect:/" + blogId + "/admin/basic";
 	}
 	
-	////////////////// Category //////////////////
+	// ------------------------- Admin Category ------------------------- //
 	@RequestMapping("/admin/category")
 	public String adminCategory(@PathVariable("id") String blogId, Model model) {
-		
-		model.addAttribute("selected", "category");
-		model.addAttribute("blogId", blogId);
-		
 		List<CategoryVo> list = blogService.getCategoryList(blogId);
+		BlogVo blogVo = blogService.getBlogAdmin(blogId);
 		List<String> postCountList = new ArrayList<>();
 		for(int i = 0 ; i < list.size() ; i++) {
 			Long categoryNo = list.get(i).getNo();
-			System.out.println("category name : " + list.get(i).getName());
 			
 			int postCount = blogService.getPostCount(blogId, categoryNo);
 			postCountList.add(Integer.toString(postCount));
 		}
 		
+		model.addAttribute("selected", "category");
 		model.addAttribute("list", list);
 		model.addAttribute("postCountList", postCountList);
-		
-		String title = blogService.getBlogAdmin(blogId).getTitle();
-		BlogVo blogVo = new BlogVo();
-		blogVo.setTitle(title);
-		
 		model.addAttribute("blogVo", blogVo);
 		
 		return "blog/admin-category";
@@ -154,11 +136,7 @@ public class BlogController {
 	
 	@RequestMapping("/category/add")
 	public String update(
-			@PathVariable("id") String blogId,
-			CategoryVo vo) {
-		
-		vo.setBlogId(blogId);
-		System.out.println("category vo : " + vo);
+			@PathVariable("id") String blogId, CategoryVo vo) {
 		
 		blogService.addCategory(vo);
 		
@@ -175,20 +153,14 @@ public class BlogController {
 		return "redirect:/" + blogId + "/admin/category";
 	}
 	
-	////////////////// Post //////////////////
+	// ------------------------- Admin Post(Write) ------------------------- //
 	@RequestMapping("/admin/write")
 	public String adminWrite(@PathVariable("id") String blogId, Model model) {
+		List<CategoryVo> list = blogService.getCategoryList(blogId);
+		BlogVo blogVo = blogService.getBlogAdmin(blogId);
 		
 		model.addAttribute("selected", "write");
-		model.addAttribute("blogId", blogId);
-		
-		List<CategoryVo> list = blogService.getCategoryList(blogId);
 		model.addAttribute("list", list);
-		
-		String title = blogService.getBlogAdmin(blogId).getTitle();
-		BlogVo blogVo = new BlogVo();
-		blogVo.setTitle(title);
-		
 		model.addAttribute("blogVo", blogVo);
 		
 		return "blog/admin-write";
@@ -196,14 +168,10 @@ public class BlogController {
 	
 	@RequestMapping("/write/add")
 	public String adminWriteAdd(
-			@PathVariable("id") String blogId, 
-			@RequestParam(value="category", required=true, defaultValue="") String categoryNo,
-			PostVo vo) {
+			@PathVariable("id") String blogId, PostVo vo,
+			@RequestParam(value="category", required=true, defaultValue="") String categoryNo) {
 		
 		vo.setCategoryNo(categoryNo);
-		System.out.println("post vo : " + vo);
-
-		// add post 
 		blogService.addPost(vo);
 		
 		return "redirect:/" + blogId;

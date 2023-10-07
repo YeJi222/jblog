@@ -11,7 +11,7 @@
 	
 	<select id="find" resultType="blogvo" parameterType="string">
 		<![CDATA[
-			select title, image
+			select title, image, blog_id as blogId
 				from blog
 			where blog_id = #{blog_id}
 		]]>
