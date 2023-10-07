@@ -7,10 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.HandlerInterceptor;
-
-import com.poscodx.jblog.service.UserService;
 import com.poscodx.jblog.vo.UserVo;
 
 public class AdminInterceptor implements HandlerInterceptor {
@@ -28,6 +25,9 @@ public class AdminInterceptor implements HandlerInterceptor {
 			+ : 바로 앞의 패턴([^/]+)이 하나 이상의 문자를 나타내야 한다는 의미
 			즉, '/'가 아닌 문자가 하나 이상 나오는 경우를 추출
 			jblog03/와 / 사이에 오는 blogId를 추출할 수 있다
+			
+			Ex) requestURI : http://localhost:8080/jblog03/yizi/admin/basic
+			=> blogId : yizi
 		*/
         Pattern pattern = Pattern.compile("/jblog03/([^/]+)/");
         Matcher matcher = pattern.matcher(requestURI);
