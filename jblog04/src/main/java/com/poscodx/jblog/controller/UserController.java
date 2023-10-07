@@ -66,6 +66,5 @@ public class UserController {
 	
 //	@RequestMapping("/logout/**")
 //	public void logout() {
-//		
 //	}
 }

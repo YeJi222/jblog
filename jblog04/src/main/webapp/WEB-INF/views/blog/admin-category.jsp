@@ -15,6 +15,8 @@
 		<div id="wrapper">
 			<div id="content" class="full-screen">
 				<c:import url="/WEB-INF/views/includes/admin-menu.jsp" />
+				
+				<!-- 카테고리 리스트 테이블 -->
 		      	<table class="admin-cat">
 		      		<tr>
 		      			<th>번호</th>
@@ -31,7 +33,7 @@
 							<td>${postCountList[status.index] }</td>
 							<td>${vo.description }</td>
 							<td>
-								<a href="${pageContext.request.contextPath }/${blogId}/category/delete/${vo.no }">
+								<a href="${pageContext.request.contextPath }/${blogVo.blogId}/category/delete/${vo.no }">
 									<img src="${pageContext.request.contextPath}/assets/images/delete.jpg">
 								</a>
 							</td>
@@ -39,7 +41,9 @@
 					</c:forEach>				  
 				</table>
       	
-      			<form method="post" action="${pageContext.request.contextPath }/${blogId}/category/add">
+      			<!-- 새로운 카테고리 추가 -->
+      			<form method="post" action="${pageContext.request.contextPath }/${blogVo.blogId}/category/add">
+	      			<input type="hidden" name="blogId" value="${blogVo.blogId }" />
 	      			<h4 class="n-c">새로운 카테고리 추가</h4>
 			      	<table id="admin-cat-add">
 			      		<tr>
