@@ -13,5 +13,4 @@ import com.poscodx.jblog.config.app.MyBatisConfig;
 @ComponentScan({"com.poscodx.jblog.service", "com.poscodx.jblog.repository"})
 @Import({DBConfig.class, MyBatisConfig.class})
 public class AppConfig {
-	
 }

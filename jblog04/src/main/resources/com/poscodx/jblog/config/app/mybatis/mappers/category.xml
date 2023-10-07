@@ -11,7 +11,7 @@
 	
 	<select id="findAll" resultType="categoryvo" parameterType="string">
 		<![CDATA[
-		  select no, name, description, blog_id
+		  select no, name, description, blog_id as blogId
 		  	from category 
 		  where blog_id = #{blogId}
 		 	order by no desc

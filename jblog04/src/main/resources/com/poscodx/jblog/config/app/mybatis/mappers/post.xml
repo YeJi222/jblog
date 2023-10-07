@@ -39,4 +39,21 @@
 		  	category.blog_id = #{blogId} and category.no = #{categoryNo}
 		]]>
 	</select>
+	
+	<select id="getPostNo" resultType="long" parameterType="map">
+		<![CDATA[
+		  select post.no
+		  	from post join category
+		  where category.no = post.category_no and
+		  	category.blog_id = #{blogId} and category_no = #{categoryNo};
+		]]>
+	</select>
+	
+	<delete id="delete" parameterType="map" > 
+		<![CDATA[
+			delete
+				from post
+			where no = #{postNo}
+		]]>	
+	</delete>
 </mapper>
