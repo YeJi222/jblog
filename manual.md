@@ -53,3 +53,13 @@ $ git clone https://github.com/YeJi222/jblog.git
 applicationContext.xml 
 ```
 
+### [구현하면서 정리한 md files]
+🐋 [Transaction 적용 방법](https://github.com/YeJi222/jblog/blob/main/transaction.md)    
+🐋 [정규표현식 사용 방법](https://github.com/YeJi222/jblog/blob/main/regex.md)
+
+
+
+
+
+
+
