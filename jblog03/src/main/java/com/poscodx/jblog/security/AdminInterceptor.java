@@ -32,9 +32,8 @@ public class AdminInterceptor implements HandlerInterceptor {
         Pattern pattern = Pattern.compile("/jblog03/([^/]+)/");
         Matcher matcher = pattern.matcher(requestURI);
 
-        // 패턴과 일치하는 부분 찾기
         String blogId = "";
-        if (matcher.find()) { 
+        if (matcher.find()) { // 패턴과 일치하는 부분 찾기
             blogId = matcher.group(1);
         }
 		
