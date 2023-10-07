@@ -60,7 +60,7 @@ applicationContext.xml
 ### [구현 결과]
 #### (jblog 메인 화면)
 - http://localhost:8080/jblog03/   
-- 로그인 세션 정보가 있을 때 :
+- 로그인 세션 정보가 있을 때
   - '로그인, 회원가입'만 활성화
   - '로그아웃, 내블로그'는 연한 색 표시, 링크 연결되지 않도록
 - 등록된 회원들의 블로그 리스트 보여주기(클릭하면 해당 블로그 링크로 이동할 수 있도록)
@@ -68,6 +68,8 @@ applicationContext.xml
 
 - JBlog 로고를 누르면 항상 'http://localhost:8080/jblog03/' 경로의 메인 화면으로 이동할 수 있다
 <img width="156" alt="image" src="https://github.com/YeJi222/jblog/assets/70511859/5f970228-4491-4a4f-abeb-1edf35ded8fb">
+
+***
 
 #### (회원정보 관련 - user)
 1. 회원가입
@@ -121,6 +123,8 @@ applicationContext.xml
 - 왼쪽 상단의 JBlog를 클릭하면, 'http://localhost:8080/jblog03/' 경로의 메인 화면으로 이동가능
 <img width="75" alt="image" src="https://github.com/YeJi222/jblog/assets/70511859/58a7f507-807c-4348-b1be-f354d7acebdb">
 
+***
+
 #### (블로그 화면)
 - http://localhost:8088/jblog/[사용자 아이디]
 - 회원가입을 하면 해당 사용자의 블로그가 지동 생성
@@ -150,6 +154,8 @@ applicationContext.xml
 
 - 등록된 게시글이 없는 경우 
 <img width="826" alt="image" src="https://github.com/YeJi222/jblog/assets/70511859/94d5d319-6abb-412f-8133-671cbd4e3066">
+
+***
 
 #### (블로그 관리 페이지 화면)
 - 인증된 사용자가 자신의 블로그에 접근하면 관리메뉴가 나타나고 관리 메뉴를 통해 블로그 관리페이지에 접근할 수 있다
@@ -196,7 +202,7 @@ applicationContext.xml
 - 카테고리 삭제
 <img width="663" alt="image" src="https://github.com/YeJi222/jblog/assets/70511859/6f885bd9-8dce-49e3-b378-be7ae35b9e13">
 
-- 미분류 카테고리에 게시글 두 개를 추가한 후, 삭제해보기
+- 미분류 카테고리에 게시글 2개를 추가한 후, 삭제해보기
 - '미분류' 카테고리와 해당 카테고리에 있던 게시글 모두 삭제된 것을 확인
 <img width="663" alt="image" src="https://github.com/YeJi222/jblog/assets/70511859/2fbecd46-de61-4e2f-84c0-4ee23f0a3181">
 
