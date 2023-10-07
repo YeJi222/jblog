@@ -4,12 +4,6 @@
 🐋 [Transaction 적용 방법](https://github.com/YeJi222/jblog/blob/main/transaction.md)    
 🐋 [정규표현식 사용 방법](https://github.com/YeJi222/jblog/blob/main/regex.md)
 
-### [실행방법]
-- 레포지토리 클론 
-```sh
-$ git clone https://github.com/YeJi222/jblog.git
-```
-
 ### [파일 위치]
 - jblog 모델 mwb 파일 : jblog/schema/jblog.mwb
 <img width="521" alt="image" src="https://github.com/YeJi222/jblog/assets/70511859/ecc2ddaa-df69-49e0-9012-9df54522c8ba">
