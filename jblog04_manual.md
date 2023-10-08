@@ -41,6 +41,9 @@
  |     |     |     |    |     |-- messages_ko.properties 
 ```
 
+☘️ applicationContext.xml을 AppConfig.java로 관리, spring-servlet.xml을 WebConfig.java로 관리한다    
+☘️ AppConfig, WebConfig는 web.xml에서 세팅된다 
+
 ### 1. jblog03의 applicationContext.xml없애고 자바 파일로 설정하기
 - applicationContext.xml를 없애고, com/poscodx/jblog/config/app 패키지에 DBConfig, MyBatisConfig 자바 파일을 생성하여 세팅한 후, AppConfig에 import 해주는 과정이 필요
 
@@ -105,7 +108,7 @@
 <!-- auto proxy -->
 <aop:aspectj-autoproxy />
 ```
-- AppConfig.java와 WebConfig.java에서 @EnableAspectJAutoProxy 어노테이션 사용
+- AppConfig.java에서 @EnableAspectJAutoProxy 어노테이션 사용
 ```java
 @EnableAspectJAutoProxy
 ```
@@ -182,7 +185,7 @@ public class DBConfig {
 }
 ```
 
-(3) 아래 xml 태그 내용을 MyBatisConfig.java에 설정   
+(4) 아래 xml 태그 내용을 MyBatisConfig.java에 설정   
 (xml)
 ```xml
 <!-- SqlSessionFactory --> 
@@ -252,6 +255,8 @@ public class MyBatisConfig {
 ```
 
 ### 2. jblog03의 spring-servlet.xml없애고 자바 파일로 설정하기
+- spring-servlet.xml을 없애고, com/poscodx/jblog/config/web 패키지에 FileUploadConfig, MessageResourceConfig, MvcConfig, SecurityConfig 자바 파일을 생성하여 세팅한 후, WebConfig에 import 해주는 과정이 필요   
+
 (기존 spring-servlet.xml)
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -330,6 +335,61 @@ public class MyBatisConfig {
 	<context:component-scan base-package="com.poscodx.jblog.controller, com.poscodx.mysite.exception" />
 </beans>
 ```
+
+(1) 아래 xml 코드에서 aspectj-autoproxy를 @EnableAspectJAutoProxy 어노테이션으로 대체
+```xml
+<!-- auto proxy -->
+<aop:aspectj-autoproxy />
+```
+- WebConfig.java에서 @EnableAspectJAutoProxy 어노테이션 사용
+```java
+@EnableAspectJAutoProxy
+```
+
+(2) 아래 xml 코드에서 default-servlet-handler를 MvcConfig.java에서 configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) 메소드로 정의   
+(xml)
+```xml
+<!-- Default Servlet Handler -->
+<mvc:default-servlet-handler/>
+```
+(java)
+```java
+@Override
+public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
+	configurer.enable();
+}
+```
+
+(3) 아래 xml 코드를 MvcConfig.java에서 viewResolver() 메소드로 정의   
+(xml)
+```xml
+<!-- View Resolver -->
+<bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+   <property name="viewClass" value="org.springframework.web.servlet.view.JstlView" />
+   <property name="prefix" value="/WEB-INF/views/" />
+   <property name="suffix" value=".jsp" />
+</bean>
+```
+(java)
+```java
+@Bean
+public ViewResolver viewResolver() {
+	InternalResourceViewResolver viewResolver = new InternalResourceViewResolver();
+	viewResolver.setViewClass(JstlView.class);
+	viewResolver.setPrefix("/WEB-INF/views/");
+	viewResolver.setSuffix(".jsp");
+	
+	return viewResolver;
+}
+```
+** MvcConfig는 WebMvcConfigurer를 implements하고, @EnableWebMvc 어노테이션이 필요   
+
+(4) interceptor, message source, multipart///
+
+
+
+
+
 
 ### 3. mappers xml 경로 수정해주기 
 - 'com/poscodx/jblog/config/app/' 경로 추가해주어 com/poscodx/jblog/config/app/mybatis/mappers/xml이름.xml로 변경 
