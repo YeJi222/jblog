@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="post">
+	<insert id="insertPost" parameterType="postvo">
+		<![CDATA[
+			insert
+				into post (title, contents, category_no, reg_date)
+			values(#{title}, #{contents}, #{categoryNo }, now())
+		]]>
+	</insert>
+	
+	<select id="findAll" resultType="postvo" parameterType="string">
+		<![CDATA[
+		  select post.no, title, contents, category_no as categoryNo, 
+		  	date_format(reg_date, '%Y/%m/%d') as regDate
+		  from post join category
+		  	where category.no = post.category_no and
+		  category.blog_id = #{blogId}
+		  	order by post.reg_date desc;
+		]]>
+	</select>
+	
+	<select id="findAllByCategory" resultType="postvo" parameterType="map">
+		<![CDATA[
+		  select post.no, title, contents, category_no as categoryNo, 
+		  	date_format(reg_date, '%Y/%m/%d') as regDate
+		  from post join category
+		  	where category.no = post.category_no and
+		  category.blog_id = #{blogId} and category_no = #{categoryNo}
+		  	order by post.reg_date desc;
+		]]>
+	</select>
+	
+	<select id="getPostCount" resultType="int" parameterType="map">
+		<![CDATA[
+		  select count(*)
+		  	from post join category
+		  where category.no = post.category_no and
+		  	category.blog_id = #{blogId} and category.no = #{categoryNo}
+		]]>
+	</select>
+	
+	<select id="getPostNo" resultType="long" parameterType="map">
+		<![CDATA[
+		  select post.no
+		  	from post join category
+		  where category.no = post.category_no and
+		  	category.blog_id = #{blogId} and category_no = #{categoryNo};
+		]]>
+	</select>
+	
+	<delete id="delete" parameterType="map" > 
+		<![CDATA[
+			delete
+				from post
+			where no = #{postNo}
+		]]>	
+	</delete>
+</mapper>

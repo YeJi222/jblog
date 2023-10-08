@@ -1,0 +1,53 @@
+[src/main/java]
+/com
+ |-- /poscodx
+ |     |-- /jblog
+ |     |     |-- /config
+ |     |     |     |-- AppConfig.java
+ |     |     |     |-- WebConfig.java
+ |     |     |     |-- /app
+ |     |     |     |    |-- DBConfig.java
+ |     |     |     |    |-- MyBatisConfig.java
+ |     |     |     |-- /web
+ |     |     |     |    |-- MvcConfig.java
+ |     |     |     |    |-- SecurityConfig.java
+ |     |     |     |    |-- MessageSourceConfig.java
+ |     |     |     |    |-- FileuploadConfig.java
+ |     |     |-- /initializer
+ |     |     |      |-- JblogWebApplicationInitializer
+ |     |     |-- /exception
+ |     |     |      |-- FileUploadServiceException
+ |     |     |      |-- GlobalExceptionHandler
+ |     |     |-- /controller 
+ |     |     |-- /service
+ |     |     |-- /repository
+ |     |     |-- /interceptor
+ |     |     |-- /vo
+
+[src/main/resources]
+/assets
+ |-- /css
+ |-- /images
+ |-- /js
+/com
+ |-- /poscodx
+ |     |-- /jblog
+ |     |     |-- /config
+ |     |     |     |-- /app
+ |     |     |     |    |-- jdbc.properties 
+ |     |     |     |    |-- /mybatis
+ |     |     |     |    |     |-- configuration.xml
+ |     |     |     |    |     |-- /mappers
+ |     |     |     |    |     |     |-- blog.xml
+ |     |     |     |    |     |     |-- category.xml
+ |     |     |     |    |     |     |-- post.xml
+ |     |     |     |    |     |     |-- user.xml
+ |     |     |     |-- /web
+ |     |     |     |    |-- fileupload.properties
+ |     |     |     |    |-- /messages
+ |     |     |     |    |     |-- messages_en.properties 
+ |     |     |     |    |     |-- messages_ko.properties
+ 
+ 
+ 
+  
