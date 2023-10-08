@@ -1,4 +1,4 @@
-## jblog05
+## jblog05 Manual
 ### 1. web.xml 없애고 자바 파일로 설정하기
 (기존 web.xml 파일)
 ```xml
@@ -183,8 +183,72 @@ public class JblogWebApplicationInitializer extends AbstractAnnotationConfigDisp
 ...
 </servlet>
 ```
+- default files 부분은 그냥 지워도 OK
+- common error page 에러 페이지 설정은 MvcConfig.java에서 configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) 메소드 주석처리 후, GlobalExceptionHandler.java에서 설정
+- **web.xml 파일을 지우고, 톰캣 실행 및 브라우저 접속해야 에러 발생하지 않는다 
   
 ### 2. assets 파일 src/main/resources로 옮기기
+(파일 구조)
+```txt
+[src/main/java]
+/com
+ |-- /poscodx
+ |     |-- /jblog
+ |     |     |-- /config
+ |     |     |     |-- AppConfig.java
+ |     |     |     |-- WebConfig.java
+ |     |     |     |-- /app
+ |     |     |     |    |-- DBConfig.java
+ |     |     |     |    |-- MyBatisConfig.java
+ |     |     |     |-- /web
+ |     |     |     |    |-- MvcConfig.java
+ |     |     |     |    |-- SecurityConfig.java
+ |     |     |     |    |-- MessageSourceConfig.java
+ |     |     |     |    |-- FileuploadConfig.java
+ |     |     |-- /initializer
+ |     |     |      |-- JblogWebApplicationInitializer
+ |     |     |-- /exception
+ |     |     |      |-- FileUploadServiceException
+ |     |     |      |-- GlobalExceptionHandler
+ |     |     |-- /controller 
+ |     |     |-- /service
+ |     |     |-- /repository
+ |     |     |-- /interceptor
+ |     |     |-- /vo
+
+[src/main/resources]
+/assets
+ |-- /css
+ |-- /images
+ |-- /js
+/com
+ |-- /poscodx
+ |     |-- /jblog
+ |     |     |-- /config
+ |     |     |     |-- /app
+ |     |     |     |    |-- jdbc.properties 
+ |     |     |     |    |-- /mybatis
+ |     |     |     |    |     |-- configuration.xml
+ |     |     |     |    |     |-- /mappers
+ |     |     |     |    |     |     |-- blog.xml
+ |     |     |     |    |     |     |-- category.xml
+ |     |     |     |    |     |     |-- post.xml
+ |     |     |     |    |     |     |-- user.xml
+ |     |     |     |-- /web
+ |     |     |     |    |-- fileupload.properties
+ |     |     |     |    |-- /messages
+ |     |     |     |    |     |-- messages_en.properties 
+ |     |     |     |    |     |-- messages_ko.properties
+```
 - 옮긴 경로 MvcConfig.java에 addResourceHandlers 메소드에 설정
+(MvcConfig.java)
+```java
+@Override
+public void addResourceHandlers(ResourceHandlerRegistry registry) {
+	registry
+		.addResourceHandler("/assets/**")
+		.addResourceLocations("classpath:assets/");		
+}
+```
 
-
+### 3. 에러페이지 설정 
