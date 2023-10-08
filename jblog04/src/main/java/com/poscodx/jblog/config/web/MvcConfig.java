@@ -20,8 +20,6 @@ public class MvcConfig implements WebMvcConfigurer {
 		viewResolver.setViewClass(JstlView.class);
 		viewResolver.setPrefix("/WEB-INF/views/");
 		viewResolver.setSuffix(".jsp");
-		viewResolver.setExposeContextBeansAsAttributes(true);
-		viewResolver.setExposedContextBeanNames("site");
 		
 		return viewResolver;
 	}
