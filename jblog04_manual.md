@@ -384,12 +384,179 @@ public ViewResolver viewResolver() {
 ```
 ** MvcConfig는 WebMvcConfigurer를 implements하고, @EnableWebMvc 어노테이션이 필요   
 
-(4) interceptor, message source, multipart///
+(4) 아래 xml 코드를 SecurityConfig.java에서 WebMvcConfigurer를 implements하여 각 Interceptor 메소드를 정의    
+(xml)
+```xml
+<!-- Interceptors -->
+<mvc:interceptors>
+	<mvc:interceptor>
+		<mvc:mapping path="/user/auth"/>
+		<bean class="com.poscodx.jblog.interceptor.LoginInterceptor" />
+	</mvc:interceptor>
+	<mvc:interceptor>
+		<mvc:mapping path="/user/logout/main"/>
+		<mvc:mapping path="/user/logout/**"/>
+		<bean class="com.poscodx.jblog.interceptor.LogoutInterceptor" />
+	</mvc:interceptor>
+	<mvc:interceptor>
+		<mvc:mapping path="/**/admin/**"/>
+		<bean class="com.poscodx.jblog.interceptor.AdminInterceptor" />
+	</mvc:interceptor>
+</mvc:interceptors>
+```
+(java)
+```java
+package com.poscodx.jblog.config.web;
 
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.web.servlet.HandlerInterceptor;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
+import com.poscodx.jblog.interceptor.AdminInterceptor;
+import com.poscodx.jblog.interceptor.LoginInterceptor;
+import com.poscodx.jblog.interceptor.LogoutInterceptor;
 
+@Configuration
+@EnableWebMvc
+public class SecurityConfig implements WebMvcConfigurer {
 
+	// Interceptors
+	@Bean
+	public HandlerInterceptor loginInterceptor() {
+		return new LoginInterceptor();
+	}
+	
+	@Bean
+	public HandlerInterceptor logoutInterceptor() {
+		return new LogoutInterceptor();
+	}
+	
+	@Bean
+	public HandlerInterceptor adminInterceptor() {
+		return new AdminInterceptor();
+	}
 
+	@Override
+	public void addInterceptors(InterceptorRegistry registry) {
+		registry
+			.addInterceptor(loginInterceptor())
+			.addPathPatterns("/user/auth");
+		
+		registry
+			.addInterceptor(logoutInterceptor())
+			.addPathPatterns("/user/logout/main", "/user/logout/**");
+		
+		registry
+			.addInterceptor(adminInterceptor())
+			.addPathPatterns("/**/admin/**");
+	}
+}
+```
+(5) 아래 xml 코드를 MessageResourceConfig.java에서 messageSource() 메소드로 정의   
+(xml)
+```xml
+<bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
+   <property name="basenames">
+      <list>
+	<value>messages/messages_ko</value>
+	<value>messages/messages_en</value>
+      </list>
+   </property>
+</bean>
+```
+(java)
+```java
+package com.poscodx.jblog.config.web;
+
+import org.springframework.context.MessageSource;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.support.ResourceBundleMessageSource;
+
+@Configuration
+public class MessageResourceConfig {
+	@Bean
+	public MessageSource messageSource() {
+		ResourceBundleMessageSource messageSource = new ResourceBundleMessageSource();
+		messageSource.setBasenames("com/poscodx/jblog/config/web/messages/messages_ko", "com/poscodx/jblog/config/web/messages/messages_en");
+		messageSource.setDefaultEncoding("utf-8");
+		
+		return messageSource;
+	}
+}
+```
+
+(6) 아래 xml 코드를 FileuploadConfig.java에서 세팅   
+(xml)
+```xml
+<!-- Multipart Resolver -->
+<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+	<!-- 최대업로드 가능한 바이트크기 -->
+	<property name="maxUploadSize" value="52428800" />
+	<!-- 디스크에 임시 파일을 생성하기 전에 메모리에 보관할수있는 최대 바이트 크기 -->
+	<property name="maxInMemorySize" value="52428800" />
+	<!-- defaultEncoding -->
+	<property name="defaultEncoding" value="utf-8" />
+</bean>
+
+<!-- mvc url-resource mapping -->
+<mvc:resources mapping="/assets/upload-images/**" location="file:/Users/yeji/jblog-uploads/" />
+```
+(java)
+```java
+package com.poscodx.jblog.config.web;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.core.env.Environment;
+import org.springframework.web.multipart.MultipartResolver;
+import org.springframework.web.multipart.commons.CommonsMultipartResolver;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+
+@Configuration
+@EnableWebMvc
+@PropertySource("classpath:com/poscodx/jblog/config/web/fileupload.properties")
+public class FileuploadConfig implements WebMvcConfigurer {
+	@Autowired
+	private Environment env;
+	
+	// Multipart Resolver
+	@Bean
+	public MultipartResolver multipartResolver() {
+		CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver();
+		multipartResolver.setMaxUploadSize(env.getProperty("fileupload.maxUploadSize", Long.class));
+		multipartResolver.setMaxInMemorySize(env.getProperty("fileupload.maxInMemorySize", Integer.class));
+		multipartResolver.setDefaultEncoding(env.getProperty("fileupload.defaultEncoding"));
+		
+		return multipartResolver;
+	}
+	
+	// url-resource mapping
+	@Override
+	public void addResourceHandlers(ResourceHandlerRegistry registry) {
+		registry
+			.addResourceHandler(env.getProperty("fileupload.resourceUrl") + "/**")
+			.addResourceLocations("file:" + env.getProperty("fileupload.uploadLocation") + "/");
+	}
+}
+```
+
+(7) 아래 xml 코드에서 component-scan를 @ComponentScan 어노테이션으로 대체   
+(xml)
+```xml
+<context:component-scan base-package="com.poscodx.jblog.controller, com.poscodx.mysite.exception" />
+```
+(java)
+```java
+@ComponentScan({"com.poscodx.jblog.controller", "com.poscodx.jblog.exception"})
+```
 
 ### 3. mappers xml 경로 수정해주기 
 - 'com/poscodx/jblog/config/app/' 경로 추가해주어 com/poscodx/jblog/config/app/mybatis/mappers/xml이름.xml로 변경 
