@@ -252,3 +252,73 @@ public void addResourceHandlers(ResourceHandlerRegistry registry) {
 ```
 
 ### 3. 에러페이지 설정 
+- com/poscodx/jblog/exception 패키지에 GlobalExceptionHandler.java 파일 생성
+- @ControllerAdvice : 스프링 컨트롤러에서 발생하는 예외를 처리하는 어노테이션
+
+(기존 web.xml에 있던 error-page 설정)
+```xml
+<!-- common error page -->
+<error-page>
+	<error-code>404</error-code>
+	<location>/WEB-INF/views/error/404.jsp</location>
+	</error-page>
+	
+	<error-page>
+	<error-code>500</error-code>
+	<location>/WEB-INF/views/error/500.jsp</location>
+</error-page>
+```
+(java 파일로 구성)
+```java
+package com.poscodx.jblog.exception;
+
+import java.io.PrintWriter;
+import java.io.StringWriter;
+import java.sql.SQLSyntaxErrorException;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.servlet.NoHandlerFoundException;
+
+@ControllerAdvice // 스프링 컨트롤러에서 발생하는 예외를 처리하는 어노테이션 
+public class GlobalExceptionHandler {
+	private static final Log logger = LogFactory.getLog(GlobalExceptionHandler.class); 
+
+	@ExceptionHandler(Exception.class)
+	public String handlerException(Model model, Exception e) {
+		
+		// 1. 404 Error 처리 
+		if(e instanceof NoHandlerFoundException) {
+			return "error/404";
+		}
+		
+		// 2. 로깅(Logging)
+		StringWriter errors = new StringWriter();
+		e.printStackTrace(new PrintWriter(errors));
+		// System.out.println(errors.toString());
+		logger.error(errors.toString());
+		
+		// 3. 404 에러 제외한 나머지 에러 처리(500 에러포함)
+		model.addAttribute("errors", errors.toString());
+		return "error/exception";
+	}
+}
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
