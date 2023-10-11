@@ -14,7 +14,7 @@ a:hover 		{ color:#dc143c; text-decoration:none; font-weight:bold; }
 
 .center-content	{ width:500px; margin:120px auto 50px auto}
 
-.center-content .logo							{ width:163px; height:104px; background:url(/jblog03/assets/images/logo.jpg) 0 0 no-repeat; margin:20px auto; text-indent:-100000px; font-size:0 }
+.center-content .logo							{ width:163px; height:104px; background:url(/jblog05/assets/images/logo.jpg) 0 0 no-repeat; margin:20px auto; text-indent:-100000px; font-size:0 }
 .center-content .menu							{ text-align:center; height:20px; margin:0 auto }
 .center-content .menu li						{ display:inline; padding-left:20px }
 .center-content .menu li a						{ font-size:1.2em }
