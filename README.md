@@ -3,6 +3,8 @@
 ### [구현하면서 정리한 md files]
 🐋 [Transaction 적용 방법](https://github.com/YeJi222/jblog/blob/main/transaction.md)    
 🐋 [정규표현식 사용 방법](https://github.com/YeJi222/jblog/blob/main/regex.md)
+🐋 [(+) jblog04에 대하여](https://github.com/YeJi222/jblog/blob/main/jblog05_manual.md)
+🐋 [(+) jblog05에 대하여](https://github.com/YeJi222/jblog/blob/main/jblog05_manual.md)
 
 ### [파일 위치]
 - jblog 모델 mwb 파일 : jblog/schema/jblog.mwb
