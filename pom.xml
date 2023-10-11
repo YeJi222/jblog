@@ -11,6 +11,7 @@
   </modules>
   
   <build>
+	  <finalName>jblog</finalName>
 	  <plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -29,4 +30,5 @@
 			</plugin>
 		</plugins>
   </build>
+  
 </project>
