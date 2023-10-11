@@ -23,6 +23,7 @@
 	</properties>
 	
 	<dependencies>
+		
 		<!-- Spring Boot Dev Tools: Live Reload -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
