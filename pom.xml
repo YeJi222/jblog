@@ -10,57 +10,23 @@
   	<module>jblog05</module>
   </modules>
   
-  <dependencies>
-  <!-- servlet -->
-		<dependency>
-		    <groupId>javax.servlet</groupId>
-		    <artifactId>javax.servlet-api</artifactId>
-		    <version>4.0.1</version>
-		    <scope>provided</scope>
-		</dependency>
-		<dependency>
-		    <groupId>javax.servlet.jsp</groupId>
-		    <artifactId>jsp-api</artifactId>
-		    <version>2.2</version>
-		    <scope>provided</scope>
-		</dependency>	
-		
-		<dependency>
-		    <groupId>org.springframework</groupId>
-		    <artifactId>spring-tx</artifactId>
-		    <version>6.0.11</version>
-		</dependency>
-	</dependencies>
-  
   <build>
-		<finalName>jblog</finalName>
-		
-		<plugins>
-			<plugin>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-maven-plugin</artifactId>
-				<configuration>
-					<excludes>
-						<exclude>
-							<groupId>org.springframework.boot</groupId>
-							<artifactId>spring-boot-devtools</artifactId>
-						</exclude>
-					</excludes>
-				</configuration>
-			</plugin>
+	  <plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-war-plugin</artifactId>
-			</plugin>			
+				<version>3.3.2</version>
+			</plugin>
 			<plugin>
 				<groupId>org.apache.tomcat.maven</groupId>
 				<artifactId>tomcat7-maven-plugin</artifactId>
 				<version>2.2</version>
+				
 				<configuration>
-					<url>${tomcat.deploy.url}</url>
+					<url>${tomcat.deploy.url }</url>
 					<server>poscodx-tomcat</server>
 				</configuration>
 			</plugin>
-		</plugins>	
-	</build>	
+		</plugins>
+  </build>
 </project>
