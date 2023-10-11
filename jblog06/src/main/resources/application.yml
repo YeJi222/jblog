@@ -1,0 +1,83 @@
+# spring configuration
+spring:
+   application:
+      name: jblog
+   
+   # devtools - live reload
+   devtools:
+      livereload:
+         enabled: true   
+   
+   # mvc
+   mvc:
+      static-path-pattern: /assets/**
+      throw-exception-if-no-handler-found: true
+      view:
+         prefix: /WEB-INF/views/
+         suffix: .jsp
+         
+   web:
+      resources:
+         static-locations: classpath:/assets/, file:/Users/yeji/jblog-uploads/
+         
+   # multipart
+   servlet:
+      multipart:
+         enabled: true
+         max-file-size: 10MB
+         max-request-size: 50MB
+         
+   # message resources(internationalization, i18n)
+   messages:
+      always-use-message-format: true
+      basename: web/messages/messages
+      encoding: utf-8
+      
+   # aop
+   aop:
+      auto: true
+      proxy-target-class: true
+
+   # datasource
+   datasource:
+      url: jdbc:mariadb://192.168.64.9:3307/jblog?charset=utf8
+      driver-class-name: org.mariadb.jdbc.Driver
+      username: jblog
+      password: jblog
+      hikari:
+         minimum-idle: 10
+         maximum-pool-size: 20
+         auto-commit: false
+
+# mybatis
+mybatis:
+   config-location: classpath:mybatis/configuration.xml
+
+# server
+server:
+   port: 8080
+   servlet:
+      context-path: /jblog06
+      encoding:
+         charset: utf-8
+         enabled: true
+         
+# logging
+logging:
+   pattern:
+      file: "%d{HH:mm:ss.SSS} [%thread] %-5level %logger{5} - %msg%n"
+      console: "%d{HH:mm:ss.SSS} [%thread] %-5level %logger{5} - %msg%n"
+   logback:
+      rollingpolicy:
+         file-name-pattern: /${spring.application.name}-logs/exception.%d{yyyy-MM-dd}.%i.log.zip
+         max-file-size: 200MB
+         max-history: 10 
+   file:
+      name: /${spring.application.name}-logs/exception.log
+   level:
+      root: INFO
+      com:
+         poscodx:
+            mysite:
+               exception: ERROR
+   
